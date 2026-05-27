@@ -314,7 +314,7 @@ topic:'Written communication, professional emails, performance reviews, and care
 revision:[
 {eng:'I have three years of experience in hospitality.', template:'I have [three] years of [experience] in hospitality.', esp:'Tengo tres años de experiencia en hotelería.'},
 {eng:'I was responsible for training the new staff.', template:'I was [responsible] for [training] the new staff.', esp:'Era responsable de capacitar al nuevo personal.'},
-{speaker:'I believe teamwork is essential in our industry.', template:'I believe [teamwork] is [essential] in our industry.', esp:'Creo que el trabajo en equipo es esencial en nuestra industria.'},
+{eng:'I believe teamwork is essential in our industry.', template:'I believe [teamwork] is [essential] in our industry.', esp:'Creo que el trabajo en equipo es esencial en nuestra industria.'},
 {eng:'I am available for morning and evening shifts.', template:'I am [available] for morning and [evening] shifts.', esp:'Estoy disponible para los turnos de mañana y de noche.'},
 {eng:'Have you ever handled a VIP guest complaint?', template:'Have you [ever] handled a VIP guest [complaint]?', esp:'¿Alguna vez manejaste una queja de un huésped VIP?'},
 {eng:'She takes initiative when problems arise at work.', template:'She takes [initiative] when [problems] arise at work.', esp:'Ella toma la iniciativa cuando surgen problemas en el trabajo.'},
