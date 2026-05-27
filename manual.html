@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 — Menu Descriptions & Specials | A2 English Services</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700;800&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f8fafc;color:#0f172a;font-family:'Inter',sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.container{max-width:960px;margin:0 auto;padding:0 20px}
+header{background:#fff;border-bottom:1px solid #e2e8f0;padding:14px 0;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.logo{font-family:'Outfit',sans-serif;font-size:1.35rem;font-weight:800;color:#312e81}
+.logo span{color:#6366f1}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:10px;font-weight:600;cursor:pointer;border:1px solid #4f46e5;background:#fff;color:#4f46e5;font-size:.9rem;transition:all .25s}
+.btn:hover{background:#4f46e5;color:#fff;transform:translateY(-1px)}
+.btn-back{border-color:#e2e8f0;color:#475569}
+.btn-back:hover{background:#f1f5f9;color:#0f172a;transform:none}
+
+/* Unit card */
+.unit-card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;margin:30px 0;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.unit-hero{width:100%;height:220px;object-fit:cover;display:block}
+.unit-body{padding:28px 30px 36px}
+.badge-num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:#e0e7ff;color:#3730a3;font-weight:700;font-size:.9rem;border-radius:8px;margin-bottom:18px}
+.sec-label{display:inline-block;padding:4px 14px;border-radius:6px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
+.sec-label.vocab{background:#e0e7ff;color:#4f46e5}
+.sec-label.phrases{background:#e3f2fd;color:#1565c0}
+.sec-label.practice{background:#e0e7ff;color:#3730a3}
+.sec-label.reading{background:#fff8e1;color:#f57f17}
+.sec-label.quiz{background:#fce4ec;color:#c62828}
+.sec-label.task{background:#e0e7ff;color:#3730a3}
+.sec-label.challenges{background:#f3e5f5;color:#6a1b9a}
+
+/* Objectives */
+.objectives{background:#eef2ff;border-left:4px solid #6366f1;border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.objectives ul{list-style:none;padding:0}
+.objectives li{padding:4px 0;color:#475569;font-size:.95rem}
+.objectives li::before{content:'✓ ';color:#6366f1;font-weight:700}
+
+/* Vocab grid */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:16px}
+.vocab-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px;transition:all .25s}
+.vocab-card:hover{border-color:#6366f1;box-shadow:0 6px 16px rgba(99,102,241,.12);transform:translateY(-2px)}
+.vocab-card-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.audio-btn{width:38px;height:38px;border-radius:50%;background:#e0e7ff;border:1px solid #c7d2fe;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.audio-btn:hover{background:#6366f1;border-color:#6366f1;color:#fff}
+.vocab-card strong{font-size:1rem;color:#0f172a}
+.vocab-es{color:#4f46e5;font-style:italic;font-size:.88rem;margin-bottom:4px}
+.vocab-def{color:#475569;font-size:.9rem}
+
+/* Phrases */
+.phrase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:16px}
+.phrase-card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #4f46e5;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.phrase-card-top{display:flex;align-items:flex-start;gap:10px}
+.phrase-en{font-weight:600;color:#0f172a;font-size:.95rem}
+.phrase-es{color:#4f46e5;font-style:italic;font-size:.88rem}
+
+/* Practice dialogue */
+.dialogue-box{background:#eef2ff;border:1px solid #c7d2fe;border-left:4px solid #6366f1;border-radius:12px;padding:20px;margin-top:14px}
+.dialogue-line{margin-bottom:8px}
+.dialogue-en{font-weight:600;color:#0f172a;font-size:.95rem}
+.dialogue-es{color:#4f46e5;font-style:italic;font-size:.88rem}
+
+/* Audio play btn */
+.play-audio-btn{background:#6366f1;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-weight:700;font-size:.9rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;margin:14px 0;transition:all .2s}
+.play-audio-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+
+/* Exercises */
+.exercise-block{margin-bottom:16px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px}
+.exercise-block p{font-weight:600;margin-bottom:12px;color:#0f172a}
+.options-row{display:flex;flex-wrap:wrap;gap:8px}
+.opt-btn{padding:8px 18px;border-radius:8px;border:1.5px solid #c7d2fe;background:#eef2ff;color:#3730a3;font-weight:600;cursor:pointer;font-size:.88rem;transition:all .2s}
+.opt-btn:hover{background:#6366f1;border-color:#6366f1;color:#fff}
+.opt-btn.correct{background:#d4edda;border-color:#28a745;color:#155724}
+.opt-btn.wrong{background:#fde8e8;border-color:#ef4444;color:#c62828}
+.feedback{font-size:.85rem;margin-top:8px;min-height:20px}
+
+/* Challenges */
+.challenge-box{background:#f3e5f5;border-left:4px solid #9c27b0;border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.challenge-hint{font-size:.8rem;color:#6a1b9a;margin-top:6px}
+
+/* Task */
+.task-box{background:#eef2ff;border-left:4px solid #6366f1;border-radius:12px;padding:18px 22px;margin-top:14px}
+.task-box .task-eng{font-weight:700;margin-bottom:4px}
+.task-box .task-es{color:#475569;font-size:.9rem;margin-bottom:12px}
+textarea{width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:12px;font-size:.95rem;font-family:'Inter',sans-serif;resize:vertical;min-height:100px;outline:none;transition:border .2s}
+textarea:focus{border-color:#6366f1}
+.wa-btn{display:block;width:100%;padding:14px;background:#6366f1;color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;text-align:center;margin-top:10px;transition:filter .2s}
+.wa-btn:hover{filter:brightness(1.08)}
+
+/* Divider */
+.section-divider{height:1px;background:#f1f5f9;margin:28px 0}
+
+footer{text-align:center;padding:40px 20px;background:#fff;border-top:1px solid #e2e8f0;margin-top:50px;color:#94a3b8;font-size:.85rem}
+
+@media(max-width:640px){
+  .unit-body{padding:18px 16px 26px}
+  .vocab-grid,.phrase-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo">A2 English<span> Services</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="index.html" class="btn btn-back">◀ Back to Course</a>
+        <button class="btn" onclick="stopAudio()">⏹ Stop Audio</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <div class="unit-card">
+
+    <img class="unit-hero"
+      src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=960&q=80"
+      alt="Restaurant dining experience">
+
+    <div class="unit-body">
+      <span style="font-size:.75rem;font-weight:700;color:#4f46e5;text-transform:uppercase;letter-spacing:1.5px;">A2 • Hospitality English</span>
+      <h1 style="font-family:'Outfit',sans-serif;font-size:1.8rem;margin:6px 0 4px;">Unit 1: Menu Descriptions &amp; Specials</h1>
+      <p style="color:#475569;margin-bottom:20px;font-size:.95rem;">Unidad 1: Descripciones del Menú y Especiales</p>
+
+      <!-- Objectives -->
+      <div class="objectives">
+        <strong style="font-size:.85rem;color:#3730a3;display:block;margin-bottom:6px;">🎯 Learning Objectives</strong>
+        <ul>
+          <li>Describe dishes, ingredients, and cooking methods</li>
+          <li>Make professional recommendations (Signature dishes)</li>
+          <li>Handle dietary restrictions and allergies at an A2 level</li>
+        </ul>
+      </div>
+
+      <!-- SECTION 1 — Vocabulary -->
+      <div class="badge-num">1</div>
+      <span class="sec-label vocab">📖 Vocabulary</span>
+      <h3 style="margin-bottom:4px;">Key Words</h3>
+      <p style="color:#475569;font-size:.88rem;margin-bottom:4px;">🔊 Click the speaker to hear each word in American English.</p>
+      <div class="vocab-grid" id="vocab-grid"></div>
+
+      <div class="section-divider"></div>
+
+      <!-- SECTION 2 — Quiz on Vocabulary -->
+      <div class="badge-num">2</div>
+      <span class="sec-label quiz">✏️ Vocabulary Quiz</span>
+      <h3 style="margin-bottom:14px;">Choose the correct translation</h3>
+      <div id="vocab-quiz"></div>
+
+      <div class="section-divider"></div>
+
+      <!-- SECTION 3 — Key Phrases -->
+      <div class="badge-num">3</div>
+      <span class="sec-label phrases">💬 Key Phrases</span>
+      <h3 style="margin-bottom:4px;">Essential Expressions</h3>
+      <div class="phrase-grid" id="phrase-grid"></div>
+
+      <div class="section-divider"></div>
+
+      <!-- SECTION 4 — Practice Dialogue -->
+      <div class="badge-num">4</div>
+      <span class="sec-label practice">🗣 Practice Dialogue</span>
+      <h3>Recommending Dishes <span style="font-weight:400;color:#475569">(Recomendando Platos)</span></h3>
+      <p style="color:#475569;font-size:.88rem;margin:4px 0 12px">A server is describing the menu to a family.</p>
+      <button class="play-audio-btn" onclick="playDialogue()">▶ Escuchar Audio (Listen)</button>
+      <div class="dialogue-box" id="dialogue-box"></div>
+
+      <div class="section-divider"></div>
+
+      <!-- SECTION 5 — Task -->
+      <div class="badge-num">5</div>
+      <span class="sec-label task">📝 Task</span>
+      <div class="task-box">
+        <p class="task-eng">Describe your restaurant's signature dish. What is it made with? What does it come with?</p>
+        <p class="task-es">Describe el plato estrella de tu restaurante. ¿De qué está hecho? ¿Con qué viene?</p>
+        <textarea id="task-answer" placeholder="Escribe tu respuesta aquí..."></textarea>
+        <button class="wa-btn" onclick="sendTaskWA()">Enviar Tarea por WhatsApp 📲</button>
+      </div>
+
+    </div><!-- /unit-body -->
+  </div><!-- /unit-card -->
+</div>
+
+<footer>
+  <p>© 2026 A2 English for Hospitality &amp; Services — Cecilia Chiappero</p>
+</footer>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────────────
+const vocab = [
+  {word:'Ingredient', word_es:'Ingrediente', def_es:'Parte de una receta.'},
+  {word:'Season', word_es:'Condimentar', def_es:'Añadir sal o especias.'},
+  {word:'Gluten-free', word_es:'Sin gluten', def_es:'Sin trigo.'},
+  {word:'Vegan', word_es:'Vegano', def_es:'Sin productos animales.'},
+  {word:'Side dish', word_es:'Guarnición', def_es:'Acompañamiento del plato.'},
+  {word:'Garnish', word_es:'Decoración', def_es:'Adorno en el plato.'},
+  {word:'Signature dish', word_es:'Plato estrella', def_es:'Especialidad del lugar.'},
+  {word:'Portion', word_es:'Porción', def_es:'Cantidad servida.'}
+];
+
+const phrases = [
+  {eng:'It comes with roasted potatoes.', esp:'Viene con papas asadas.'},
+  {eng:'It\'s made with fresh tomatoes and basil.', esp:'Está hecho con tomates frescos y albahaca.'},
+  {eng:'Our signature dish is the slow-roasted lamb.', esp:'Nuestro plato estrella es el cordero asado.'},
+  {eng:'Do you have any dietary restrictions?', esp:'¿Tienen alguna restricción alimentaria?'}
+];
+
+const dialogue = [
+  {en:"Server: Good evening! Can I tell you about our specials tonight?", es:'Mesero: ¡Buenas noches! ¿Puedo contarles sobre nuestras especialidades de esta noche?'},
+  {en:'Guest: Yes, please. My daughter is vegetarian. What do you recommend?', es:'Huésped: Sí, por favor. Mi hija es vegetariana. ¿Qué recomienda?'},
+  {en:'Server: We have a delicious vegan pasta tonight. It\'s made with fresh tomatoes and basil.', es:'Mesero: Tenemos una deliciosa pasta vegana esta noche. Está hecha con tomates frescos y albahaca.'},
+  {en:"Guest: That sounds great! Is it gluten-free?", es:'Huésped: ¡Suena genial! ¿Es sin gluten?'},
+  {en:"Server: Unfortunately, it's not. But we do have a gluten-free risotto with mushrooms.", es:'Mesero: Lamentablemente no. Pero tenemos un risotto sin gluten con champiñones.'}
+];
+
+const vocabQuiz = [
+  {q:"'Side dish' means:", opts:['The main plate','A small dish served with the main course','A dessert'], correct:1},
+  {q:"'Signature dish' is:", opts:['A dish the restaurant is famous for','The cheapest dish','A vegetarian option'], correct:0},
+  {q:"To 'season' food means to:", opts:['Cook it for a long time','Serve it cold','Add salt, pepper, or spices'], correct:2}
+];
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function renderVocab() {
+  const g = document.getElementById('vocab-grid');
+  g.innerHTML = vocab.map((v,i) => `
+    <div class="vocab-card">
+      <div class="vocab-card-top">
+        <button class="audio-btn" onclick="speak('${v.word.replace(/'/g,"\\'")}')">🔊</button>
+        <strong>${v.word}</strong>
+      </div>
+      <div class="vocab-es">${v.word_es}</div>
+      <div class="vocab-def">${v.def_es}</div>
+    </div>`).join('');
+}
+
+function renderPhrases() {
+  const g = document.getElementById('phrase-grid');
+  g.innerHTML = phrases.map(p => `
+    <div class="phrase-card">
+      <div class="phrase-card-top">
+        <button class="audio-btn" onclick="speak('${p.eng.replace(/'/g,"\\'")}')">🔊</button>
+        <div>
+          <div class="phrase-en">${p.eng}</div>
+          <div class="phrase-es">${p.esp}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderDialogue() {
+  document.getElementById('dialogue-box').innerHTML = dialogue.map(l => `
+    <div class="dialogue-line">
+      <div class="dialogue-en">${l.en}</div>
+      <div class="dialogue-es">${l.es}</div>
+    </div>`).join('');
+}
+
+function renderQuiz(questions, containerId) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = questions.map((q,qi) => `
+    <div class="exercise-block">
+      <p>${qi+1}. ${q.q}</p>
+      <div class="options-row">
+        ${q.opts.map((o,oi) => `<button class="opt-btn" onclick="checkOpt(this,${oi},${q.correct},'fb_${containerId}_${qi}')">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb_${containerId}_${qi}"></div>
+    </div>`).join('');
+}
+
+function checkOpt(btn, chosen, correct, fbId) {
+  const row = btn.parentElement;
+  row.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('correct','wrong'));
+  btn.classList.add(chosen === correct ? 'correct' : 'wrong');
+  const fb = document.getElementById(fbId);
+  fb.textContent = chosen === correct ? '✅ Correct! Great job!' : '❌ Not quite — try again!';
+  fb.style.color = chosen === correct ? '#28a745' : '#c62828';
+}
+
+// ── Audio ──────────────────────────────────────────────────────────────────
+let voices = [], synthQ = [], playing = false;
+if ('speechSynthesis' in window) {
+  speechSynthesis.onvoiceschanged = () => { voices = speechSynthesis.getVoices(); };
+  setTimeout(() => { voices = speechSynthesis.getVoices(); }, 400);
+}
+function getBestVoice() {
+  const pool = voices.filter(v => v.lang === 'en-US');
+  const pref = ['Google US English','Microsoft Aria','Microsoft Jenny','Zira','Samantha'];
+  for (const kw of pref) { const m = pool.find(v => v.name.includes(kw)); if (m) return m; }
+  return pool[0] || voices.find(v => v.lang.startsWith('en')) || null;
+}
+function speak(text) {
+  stopAudio();
+  const chunks = text.match(/.{1,180}(?:\s|$)/g) || [text];
+  synthQ = [...chunks]; playing = true; nextChunk();
+}
+function nextChunk() {
+  if (!playing || !synthQ.length) { playing = false; return; }
+  const u = new SpeechSynthesisUtterance(synthQ.shift());
+  u.lang = 'en-US'; u.rate = 0.95; u.pitch = 1;
+  const v = getBestVoice(); if (v) u.voice = v;
+  u.onend = () => setTimeout(nextChunk, 300);
+  speechSynthesis.speak(u);
+}
+function stopAudio() {
+  playing = false; synthQ = [];
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+}
+function playDialogue() {
+  const text = dialogue.map(l => l.en).join('. ');
+  speak(text);
+}
+
+// ── WhatsApp Task ──────────────────────────────────────────────────────────
+function sendTaskWA() {
+  const ans = document.getElementById('task-answer').value.trim();
+  if (!ans) { alert('Please write your answer first!'); return; }
+  const msg = encodeURIComponent('📝 *Tarea Unit 1 (A2) — Menu Descriptions*\n\n' + ans);
+  window.open('https://wa.me/5493517017850?text=' + msg, '_blank');
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+renderVocab();
+renderPhrases();
+renderDialogue();
+renderQuiz(vocabQuiz, 'vocab-quiz');
+</script>
+</body>
+</html>

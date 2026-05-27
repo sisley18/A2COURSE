@@ -1,0 +1,26 @@
+:root {
+    /* Color Palette — Deep Indigo/Violet Theme (A2 Level) */
+    --bg-primary: #312e81;       /* Deep Indigo */
+    --bg-secondary: #2d2a74;     /* Darker Indigo */
+    --text-primary: #ffffff;
+    --text-secondary: #eef2ff;   /* Light Indigo Cream */
+
+    /* Accent Colors */
+    --accent-gold: #fde68a;      /* Warm Yellow */
+    --accent-gold-dim: rgba(253, 230, 138, 0.3);
+    --accent-electric: #f59e0b;  /* Amber */
+    --accent-dark: #1e1b4b;      /* Deep Purple */
+
+    --gradient-indigo: linear-gradient(135deg, #312e81 0%, #2d2a74 100%);
+    --gradient-accent: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
+
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Outfit', sans-serif;
+
+    --spacing-sm: 8px;
+    --spacing-md: 24px;
+    --spacing-lg: 48px;
+
+    --border-radius: 16px;
+    --shadow-glow: 0 0 30px rgba(0, 0, 0, 0.25);
+}
