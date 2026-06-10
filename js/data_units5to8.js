@@ -1,104 +1,104 @@
 courseData.units = courseData.units.concat([
 {
-id:5, emoji:'🍷',
-title:'Wine, Beverages & Upselling',
-topic:'Recommending drinks, upselling techniques, and pairing food with beverages at A2 level',
+id:5, emoji:'💳',
+title:'Complaints & Closing the Table',
+topic:'Handling simple complaints, apologizing, offering solutions, and managing the bill/check at an easy level',
 revision:[
-{eng:'Our deep clean protocol includes sanitizing all surfaces.', template:'Our [deep] clean protocol includes [sanitizing] all surfaces.', esp:'Nuestro protocolo de limpieza profunda incluye higienizar todas las superficies.'},
-{eng:'You must wear PPE when using chemical cleaners.', template:'You [must] wear PPE when using [chemical] cleaners.', esp:'Debes usar EPP cuando uses productos de limpieza químicos.'},
-{eng:'Please replace the linen in all rooms on floor three.', template:'Please [replace] the [linen] in all rooms on floor three.', esp:'Por favor reemplaza la ropa de cama en todas las habitaciones del tercer piso.'},
-{eng:'Always sign the cleaning log after every room.', template:'Always sign the cleaning [log] after every [room].', esp:'Siempre firma la planilla de limpieza después de cada habitación.'},
-{eng:'Use separate cloths to avoid cross-contamination.', template:'Use [separate] cloths to avoid [cross-contamination].', esp:'Usa trapos separados para evitar la contaminación cruzada.'},
-{eng:'Turndown service begins at seven PM tonight.', template:'[Turndown] service begins at seven PM [tonight].', esp:'El servicio de preparación nocturna comienza a las siete de la noche.'},
-{eng:'You mustn\'t enter an occupied room without knocking.', template:'You [mustn\'t] enter an [occupied] room without knocking.', esp:'No se debe entrar en una habitación ocupada sin llamar.'},
-{eng:'A vacant room is ready for the new guest.', template:'A [vacant] room is ready for the [new] guest.', esp:'Una habitación vacante está lista para el nuevo huésped.'},
-{eng:'The housekeeper must sanitize high-touch surfaces.', template:'The [housekeeper] must [sanitize] high-touch surfaces.', esp:'La mucama debe higienizar las superficies de alto contacto.'},
-{eng:'Please check if the room is occupied before entering.', template:'Please check if the room is [occupied] before [entering].', esp:'Por favor verifica si la habitación está ocupada antes de entrar.'}
+{eng:'Here is your menu, sir.', template:'[Here] is your menu, [sir].', esp:'Aquí tiene su menú, señor.'},
+{eng:'Are you ready to order?', template:'Are you [ready] to [order]?', esp:'¿Están listos para ordenar?'},
+{eng:'Would you like some water?', template:'[Would] you like some [water]?', esp:'¿Desea un poco de agua?'},
+{eng:'Enjoy your meal!', template:'[Enjoy] your [meal]!', esp:'¡Disfrute su comida!'},
+{eng:'Can I take your plates?', template:'[Can] I take your [plates]?', esp:'¿Puedo retirar sus platos?'},
+{eng:'Would you like to see the dessert menu?', template:'Would you like to [see] the [dessert] menu?', esp:'¿Les gustaría ver el menú de postres?'},
+{eng:'Is everything okay with your food?', template:'Is [everything] okay with your [food]?', esp:'¿Está todo bien con su comida?'},
+{eng:'The bathroom is on the right.', template:'The [bathroom] is on the [right].', esp:'El baño está a la derecha.'},
+{eng:'Thank you for coming today.', template:'[Thank] you for [coming] today.', esp:'Gracias por venir hoy.'},
+{eng:'Have a wonderful evening.', template:'Have a [wonderful] [evening].', esp:'Que tengan una noche maravillosa.'}
 ],
 vocabulary:[
-{word:'Upsell', ipa:'ˈʌpsel', def:'To suggest a more expensive or premium product', def_es:'vender más / mejorar la venta', example:'A good server always upsells the wine.'},
-{word:'Pairing', ipa:'ˈpɛərɪŋ', def:'Matching food with a suitable drink', def_es:'maridaje', example:'The chef recommends a red wine pairing with the steak.'},
-{word:'Still / Sparkling', ipa:'stɪl / ˈspɑːrklɪŋ', def:'Still = no bubbles; Sparkling = with bubbles', def_es:'sin gas / con gas', example:'Would you prefer still or sparkling water tonight?'},
-{word:'By the glass / By the bottle', ipa:'baɪ ðə ɡlɑːs / baɪ ðə ˈbɒtl', def:'Options to order wine individually or as a full bottle', def_es:'por copa / por botella', example:'Would you like the wine by the glass or by the bottle?'},
-{word:'Craft beer', ipa:'krɑːft bɪər', def:'Beer made by a small, independent brewery', def_es:'cerveza artesanal', example:'We have four local craft beers on tap.'},
-{word:'Aperitif', ipa:'əˌpɛrɪˈtiːf', def:'A drink served before a meal to stimulate appetite', def_es:'aperitivo', example:'Can I offer you an aperitif while you look at the menu?'},
-{word:'Non-alcoholic', ipa:'ˌnɒn ælkəˈhɒlɪk', def:'A drink without alcohol', def_es:'sin alcohol', example:'We have an excellent non-alcoholic sangria.'},
-{word:'Complements', ipa:'ˈkɒmplɪments', def:'Goes well with; enhances the flavor of', def_es:'combina bien con / realza', example:'The Malbec complements the lamb perfectly.'}
+{word:'Bill / Check', ipa:'bɪl / tʃɛk', def:'The document showing how much to pay', def_es:'la cuenta', example:'Could we have the bill, please?'},
+{word:'Cash / Card', ipa:'kæʃ / kɑːrd', def:'Ways to pay for the meal', def_es:'efectivo / tarjeta', example:'Are you paying with cash or card?'},
+{word:'Tip / Gratuity', ipa:'tɪp / ɡrəˈtuːɪti', def:'Extra money given for good service', def_es:'propina', example:'Service is not included, so you can leave a tip.'},
+{word:'Apologize', ipa:'əˈpɒlədʒaɪz', def:'To say sorry for a mistake', def_es:'pedir disculpas', example:'I apologize for the delay.'},
+{word:'Mistake', ipa:'mɪˈsteɪk', def:'Something that is incorrect', def_es:'error', example:'There is a mistake on the bill.'},
+{word:'Right away', ipa:'raɪt əˈweɪ', def:'Immediately', def_es:'enseguida', example:'I will fix that right away.'},
+{word:'Cold', ipa:'koʊld', def:'Not hot; having a low temperature', def_es:'frío/a', example:'My soup is cold.'},
+{word:'Included', ipa:'ɪnˈkluːdɪd', def:'Part of the total price', def_es:'incluido/a', example:'Is the tip included?'}
 ],
 listening:{
-title:'The Sommelier\'s Recommendation',
-preListening:'A sommelier (wine expert) is advising a couple on wine choices. Listen for the wine recommendations and why they are suggested.',
-transcript:'Good evening! I\'m Carlos, the sommelier here at La Vigne. I see you\'ve ordered the grilled sea bass and the lamb. Excellent choices! For the sea bass, I highly recommend our Chardonnay from Mendoza — it\'s a crisp, dry white wine that complements the delicate flavor of the fish beautifully. By the glass, it\'s twelve dollars, or we have the full bottle for forty-five. For the lamb, our house Malbec is outstanding — it\'s a bold red wine with notes of cherry and chocolate. It pairs perfectly with the rosemary seasoning on your lamb. It\'s available by the glass for fourteen dollars. Would you like to try a small taste before deciding? And can I offer you an aperitif to start? We have a lovely Prosecco or a non-alcoholic sparkling grape juice if you prefer. Excellent — I\'ll be right back!',
-transcriptEs:'¡Buenas noches! Soy Carlos, el sommelier aquí en La Vigne. Veo que han pedido el lenguado a la parrilla y el cordero. ¡Excelentes elecciones! Para el lenguado, les recomiendo mucho nuestro Chardonnay de Mendoza — es un vino blanco seco y fresco que realza a la perfección el delicado sabor del pescado. Por copa son doce dólares, o tenemos la botella completa por cuarenta y cinco. Para el cordero, nuestro Malbec de la casa es excepcional — es un vino tinto robusto con notas de cereza y chocolate. Combina perfectamente con el romero del cordero. Está disponible por copa por catorce dólares. ¿Les gustaría probar un pequeño sorbo antes de decidir? ¿Y puedo ofrecerles un aperitivo para comenzar? Tenemos un delicioso Prosecco o un jugo de uva espumante sin alcohol si lo prefieren. Excelente — ¡vuelvo enseguida!',
+title:'Closing the Table and A Small Problem',
+preListening:'A guest asks for the bill, but finds a small mistake. Listen to how the waiter handles it simply and politely.',
+transcript:'Guest: Excuse me, could we have the bill, please?\nWaiter: Of course, sir. I will bring it right away.\nGuest: Thank you. Oh, wait... I think there is a mistake. We didn\'t order two coffees. We only had one.\nWaiter: I am very sorry about that. Let me check... You are right. I apologize. I will correct the bill right away.\nGuest: Thank you.\nWaiter: Here is the correct bill. How would you like to pay, cash or card?\nGuest: Card, please. Is the tip included?\nWaiter: No, the tip is not included.\nGuest: Okay, please add ten percent.\nWaiter: Thank you very much! Have a great evening!',
+transcriptEs:'Huésped: Disculpe, ¿nos podría traer la cuenta, por favor?\nMesero: Por supuesto, señor. Se la traigo enseguida.\nHuésped: Gracias. Oh, espere... Creo que hay un error. No pedimos dos cafés. Solo tomamos uno.\nMesero: Lo siento mucho. Déjeme verificar... Tiene razón. Pido disculpas. Corregiré la cuenta enseguida.\nHuésped: Gracias.\nMesero: Aquí tiene la cuenta correcta. ¿Cómo le gustaría pagar, en efectivo o con tarjeta?\nHuésped: Tarjeta, por favor. ¿La propina está incluida?\nMesero: No, la propina no está incluida.\nHuésped: Bien, por favor agregue un diez por ciento.\nMesero: ¡Muchas gracias! ¡Que tenga una excelente noche!',
 questions:[
-{q:'What wine is recommended with the sea bass?', options:['Malbec','Chardonnay','Prosecco'], correct:1},
-{q:'How much is the Chardonnay by the bottle?', options:['$12','$45','$14'], correct:1},
-{q:'What non-alcoholic option is offered as an aperitif?', options:['Water','Lemonade','Sparkling grape juice'], correct:2}
+{q:'What mistake was on the bill?', options:['Extra water','Extra coffee','Extra dessert'], correct:1},
+{q:'How does the guest want to pay?', options:['Cash','Card','Mobile app'], correct:1},
+{q:'Is the tip included in the bill?', options:['Yes','No','Only 5%'], correct:1}
 ]
 },
 dialogue:{
-title:'Upselling Beverages at the Table',
-situation:'📍 A server approaches a table to take drink orders and upsell premium options.',
+title:'Asking for the Bill and Paying',
+situation:'📍 A guest finishes their meal and asks to pay.',
 lines:[
-{speaker:'SERVER', text:'Good evening! Can I start you off with something to drink tonight?'},
-{speaker:'GUEST', text:'Just water for now, please.'},
-{speaker:'SERVER', text:'Of course! Still or sparkling? We also have a lovely house sangria — it\'s very popular.'},
-{speaker:'GUEST', text:'Tell me more about the sangria.'},
-{speaker:'SERVER', text:'It\'s made with red wine, fresh orange, and a touch of cinnamon. It\'s absolutely delicious!'},
-{speaker:'GUEST', text:'That sounds great. We\'ll have a jug of that!'},
-{speaker:'SERVER', text:'Excellent choice! And would you like to see our craft beer selection? We have four local options on tap.'},
-{speaker:'GUEST', text:'Maybe after. Let\'s start with the sangria.'},
-{speaker:'SERVER', text:'Perfect! I\'ll bring that right out.'}
+{speaker:'WAITER', text:'Did you enjoy your meal?'},
+{speaker:'GUEST', text:'Yes, it was delicious. Could we have the bill, please?'},
+{speaker:'WAITER', text:'Certainly. I will bring it right away.'},
+{speaker:'GUEST', text:'Thank you. Can I pay with card?'},
+{speaker:'WAITER', text:'Yes, of course. We accept all major cards.'},
+{speaker:'GUEST', text:'Great. Here you go.'},
+{speaker:'WAITER', text:'Thank you. If you need to add a tip, you can enter it on the machine.'},
+{speaker:'GUEST', text:'Done.'},
+{speaker:'WAITER', text:'Thank you very much. Have a wonderful day!'}
 ],
-practicePrompt:'Practice upselling drinks. Use: It\'s made with... It\'s very popular. Would you like to try...? We also have... I highly recommend...'
+practicePrompt:'Practice closing the table. Use: Did you enjoy... Could we have the bill... I will bring it... Can I pay with... Have a wonderful day!'
 },
 grammar:{
-title:'Comparative Adjectives — Describing and Recommending',
-explanation:'At A2, we use comparative adjectives to compare drinks and dishes. Add -ER to short adjectives (dry → drier). Use MORE before longer adjectives (complex → more complex). Use THAN to compare two things.',
-examples:['Our Malbec is bolder than the Chardonnay.','The sparkling water is more refreshing than still.','This craft beer is lighter than a regular lager.'],
+title:'Future Simple (Will) — Promises and Quick Decisions',
+explanation:'At level A1/A2, we use "will" (or \'ll) to make a promise or a quick decision at the moment of speaking. It is very useful when solving a problem or saying what you are going to do next.',
+examples:['I will bring the bill right away.','I will correct the mistake.','I will tell the chef.'],
 exercises:[
-{question:'The red wine is ___ than the white wine. (bold)', options:['more bold','bolder','boldest'], correct:1},
-{question:'Our cocktails are ___ than the house wines. (expensive)', options:['expensiver','more expensive','most expensive'], correct:1},
-{question:'The sparkling water is ___ than the juice. (light)', options:['lighter','more light','lightest'], correct:0},
-{question:'Our sommelier is ___ than the average waiter. (knowledgeable)', options:['more knowledgeable','knowledgeabler','most knowledgeable'], correct:0},
-{question:'This pairing is ___ for the lamb. (suitable)', options:['suitabler','most suitable','more suitable'], correct:2}
+{question:'I am sorry. I ___ bring a new soup right away.', options:['will','am','do'], correct:0},
+{question:'There is a mistake? Let me check. I ___ fix it for you.', options:['will','want','can'], correct:0},
+{question:'Thank you for telling me. I ___ change your plate.', options:['are','will','do'], correct:1},
+{question:'Guest: "Could we have the bill?" Waiter: "Yes, I ___ bring it now."', options:['will','was','have'], correct:0},
+{question:'I ___ ask the manager to come to your table.', options:['will','did','does'], correct:0}
 ]
 },
 oralPractice:{
-title:'Beverages & Upselling — Practice',
-instruction:'Use the drinks dialogue. Fill in the blanks and choose the best upselling response.',
+title:'Closing the Table — Practice',
+instruction:'Use the dialogue vocabulary to fill in the blanks.',
 exercises:[
-{type:'fill', sentence:'Good evening! Can I start you off with something to ____ tonight?', options:['drink','eat','order'], correct:0, answer:'drink', translation:'¡Buenas noches! ¿Puedo traerles algo de beber esta noche?'},
-{type:'fill', sentence:'It\'s made with red wine, fresh orange, and a touch of ____.', options:['cinnamon','lemon','pepper'], correct:0, answer:'cinnamon', translation:'Está hecho con vino tinto, naranja fresca y un toque de canela.'},
-{type:'match', speaker:'GUEST', prompt:'Tell me more about the sangria.', options:['It\'s made with red wine and orange. Very popular!','I don\'t know much about it.','We don\'t have sangria tonight.'], correct:0, answer:'It\'s made with red wine and orange. Very popular!', translation:'Cuénteme más sobre la sangría. — Está hecha con vino tinto y naranja. ¡Es muy popular!'},
-{type:'fill', sentence:'Would you like to see our ____ beer selection? We have four local options.', options:['craft','cold','cheap'], correct:0, answer:'craft', translation:'¿Le gustaría ver nuestra selección de cervezas artesanales? Tenemos cuatro opciones locales.'}
+{type:'fill', sentence:'Excuse me, could we have the ____, please?', options:['menu','bill','water'], correct:1, answer:'bill', translation:'Disculpe, ¿nos podría traer la cuenta, por favor?'},
+{type:'fill', sentence:'I am very sorry. I will correct the ____ right away.', options:['mistake','table','food'], correct:0, answer:'mistake', translation:'Lo siento mucho. Corregiré el error enseguida.'},
+{type:'match', speaker:'GUEST', prompt:'Can I pay with card?', options:['Yes, we accept all cards.','No, I don\'t have a card.','You can eat now.'], correct:0, answer:'Yes, we accept all cards.', translation:'¿Puedo pagar con tarjeta? — Sí, aceptamos todas las tarjetas.'},
+{type:'fill', sentence:'Is the ____ included in the bill?', options:['tip','food','plate'], correct:0, answer:'tip', translation:'¿La propina está incluida en la cuenta?'}
 ]
 },
 speaking:[
-{icon:'🍷', type:'Sommelier Role Play', prompt:'You are the sommelier. A guest has ordered grilled chicken and a vegetable pasta. Recommend a wine for each dish. Explain WHY you recommend it (flavor, pairing). Offer it by the glass or bottle.', promptEs:'Sos el sommelier. Un huésped pidió pollo a la parrilla y pasta de vegetales. Recomendá un vino para cada plato. Explicá POR QUÉ lo recomendás (sabor, maridaje). Ofrecélo por copa o botella.', model:'For the chicken, I recommend our Sauvignon Blanc — it\'s a light, crisp white wine that complements the herbs beautifully. For the pasta, our Pinot Noir is a lighter red — it\'s more delicate and won\'t overpower the vegetables. Would you prefer by the glass or by the bottle?', modelEs:'Para el pollo, recomiendo nuestro Sauvignon Blanc — es un vino blanco ligero y fresco que combina perfectamente con las hierbas. Para la pasta, nuestro Pinot Noir es un tinto más ligero — es más delicado y no opacará las verduras. ¿Lo prefiere por copa o por botella?'},
-{icon:'💰', type:'Upselling Practice', prompt:'A customer orders \"just water.\" Upsell by offering: 1) a sparkling option, 2) a house cocktail, 3) an aperitif. Describe each option with one key detail. Be enthusiastic and professional.', promptEs:'Un cliente pide \"solo agua\". Hacé un upsell ofreciendo: 1) una opción con gas, 2) un cóctel de la casa, 3) un aperitivo. Describí cada opción con un detalle clave. Sé entusiasta y profesional.', model:'Of course! We have still or sparkling water. Also, our house cocktail tonight is a passion fruit mojito — it\'s incredibly refreshing! And can I offer you an aperitif? Our Aperol Spritz is a very popular choice to start. Would you like to try something?', modelEs:'¡Por supuesto! Tenemos agua sin gas o con gas. Además, nuestro cóctel de la casa esta noche es un mojito de maracuyá — ¡es increíblemente refrescante! ¿Y puedo ofrecerle un aperitivo? Nuestro Aperol Spritz es una opción muy popular para comenzar. ¿Le gustaría probar algo?'}
+{icon:'💸', type:'Closing the Table Role Play', prompt:'You are the waiter. Ask if the guests enjoyed the meal, bring the bill, ask if they want to pay with cash or card, and say goodbye.', promptEs:'Sos el mesero. Preguntá si los invitados disfrutaron la comida, traé la cuenta, preguntá si quieren pagar en efectivo o con tarjeta, y despedite.', model:'Did you enjoy your meal? Here is your bill. Would you like to pay with cash or card? Thank you very much, have a wonderful evening!', modelEs:'¿Disfrutaron su comida? Aquí tiene su cuenta. ¿Le gustaría pagar en efectivo o con tarjeta? ¡Muchas gracias, que tenga una noche maravillosa!'},
+{icon:'🙏', type:'Simple Apology', prompt:'A guest says their soup is cold. Apologize and promise to bring a hot one right away.', promptEs:'Un huésped dice que su sopa está fría. Disculpate y prometé traer una caliente enseguida.', model:'I am very sorry about that. I will bring you a hot soup right away.', modelEs:'Lo siento mucho. Le traeré una sopa caliente enseguida.'}
 ],
 review:[
-{sentence:'To enter a guest room safely, you must ___ before opening the door.', options:['clean','knock','sanitize'], correct:1},
-{sentence:'The cleaning ___ is a record of tasks completed that housekeepers must sign.', options:['schedule','log','supply'], correct:1},
-{sentence:'A thorough cleaning of an entire area is called a ___ clean.', options:['light','surface','deep'], correct:2},
-{sentence:'You ___ use the same cloth in the bathroom and kitchen — it spreads germs.', options:['must','have to','mustn\'t'], correct:2},
-{sentence:'PPE includes gloves, mask, and other ___ equipment.', options:['protective','professional','personal protective'], correct:2}
+{sentence:'When a guest wants to pay, they ask for the ___.', options:['menu','bill','fork'], correct:1},
+{sentence:'If there is a problem, you should say "I ___".', options:['apologize','smile','run'], correct:0},
+{sentence:'Extra money for good service is called a ___.', options:['bill','mistake','tip'], correct:2},
+{sentence:'"I ___ bring the menu right away." (future promise)', options:['will','am','have'], correct:0},
+{sentence:'To pay with plastic, you use a ___.', options:['cash','card','coin'], correct:1}
 ],
 videos:[
-{title:'Wine Vocabulary in English — Sommelier Tips', channel:'English with Lucy', duration:'7:00', url:'https://www.youtube.com/watch?v=3uMKyPpFLw4'},
-{title:'Restaurant English — Upselling Techniques', channel:'Oxford Online English', duration:'6:00', url:'https://www.youtube.com/watch?v=Zy1h49_L8ME'}
+{title:'How to Ask for the Bill in English', channel:'English Speaking Success', duration:'5:00', url:'https://www.youtube.com/watch?v=3uMKyPpFLw4'},
+{title:'Restaurant English - Dealing with Complaints', channel:'Oxford Online English', duration:'6:00', url:'https://www.youtube.com/watch?v=Zy1h49_L8ME'}
 ],
 videoExercise:{
-title:'🎬 Video Quiz — Beverages & Upselling',
+title:'🎬 Video Quiz — Bills & Problems',
 instruction:'Watch the videos and choose the correct answer for each question.',
 instructionEs:'Mirá los videos y elegí la respuesta correcta para cada pregunta.',
 questions:[
-{q:'To \"upsell\" means to:', qEs:'\"Upsell\" significa:', options:['suggest a better or more expensive option','lower the price','cancel an order'], optionsEs:['sugerir una opción mejor o más cara','bajar el precio','cancelar un pedido'], correct:0},
-{q:'A \"pairing\" in food service is:', qEs:'Un \"maridaje\" en gastronomía es:', options:['matching food with the right drink','taking an order','splitting the bill'], optionsEs:['combinar comida con la bebida adecuada','tomar un pedido','dividir la cuenta'], correct:0},
-{q:'\"Still water\" means water that is:', qEs:'\"Still water\" significa agua que es:', options:['without bubbles','very cold','with ice'], optionsEs:['sin burbujas','muy fría','con hielo'], correct:0},
-{q:'An \"aperitif\" is served:', qEs:'Un \"aperitivo\" se sirve:', options:['before the meal','after the dessert','with the main course'], optionsEs:['antes de la comida','después del postre','con el plato principal'], correct:0},
-{q:'\"This wine is bolder ___ the Chardonnay.\" Which word completes this?', qEs:'\"Este vino es más robusto ___ el Chardonnay.\" ¿Qué palabra completa esto?', options:['than','then','that'], optionsEs:['que','luego','eso'], correct:0}
+{q:'"Could we have the bill, please?" means:', qEs:'"Could we have the bill, please?" significa:', options:['We want more food','We want to pay','We want water'], optionsEs:['Queremos más comida','Queremos pagar','Queremos agua'], correct:1},
+{q:'If a customer says "keep the change", they are leaving a:', qEs:'Si un cliente dice "keep the change" (quédese con el vuelto), está dejando una:', options:['complaint','tip','mistake'], optionsEs:['queja','propina','error'], correct:1},
+{q:'"I\'ll fix that right away" means:', qEs:'"I\'ll fix that right away" significa:', options:['I will repair it tomorrow','I will solve it immediately','I don\'t know'], optionsEs:['Lo repararé mañana','Lo solucionaré inmediatamente','No lo sé'], correct:1},
+{q:'When paying, "cash" means:', qEs:'Al pagar, "cash" significa:', options:['paper money and coins','credit card','a check'], optionsEs:['dinero en billetes y monedas','tarjeta de crédito','un cheque'], correct:0},
+{q:'If you "apologize", you say:', qEs:'Si te "apologize" (disculpas), dices:', options:['Thank you','I am sorry','Hello'], optionsEs:['Gracias','Lo siento','Hola'], correct:1}
 ]
 }
 },
