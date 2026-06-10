@@ -49,7 +49,8 @@ function renderCurriculum() {
     container.innerHTML = '';
 
     courseData.units.forEach(unit => {
-        let secNum = 1;
+        let secLabels = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1', 'I1', 'J1'];
+        let secIdx = 0;
         const savedDate = localStorage.getItem('a2_completed_u' + unit.id);
         const isCompleted = !!savedDate;
 
@@ -110,7 +111,7 @@ function renderCurriculum() {
 
                 <!-- 1. Vocabulary -->
                 <div class="section-block">
-                    <span class="section-label vocabulary">${secNum++}. 📖 Vocabulary</span>
+                    <span class="section-label vocabulary">${secLabels[secIdx++]}. 📖 Vocabulary</span>
                     <h3 style="margin-bottom:6px;">Key Words & Phrases</h3>
                     <p style="margin-bottom:15px; opacity:0.75; font-size:0.95rem;">🔊 Click the speaker icon to hear each word in American English:</p>
                     <div class="vocab-grid">
@@ -133,7 +134,7 @@ function renderCurriculum() {
 
                 <!-- 2. Listening -->
                 <div class="section-block">
-                    <span class="section-label listening">${secNum++}. 🎧 Listening</span>
+                    <span class="section-label listening">${secLabels[secIdx++]}. 🎧 Listening</span>
                     <h3 style="margin-bottom:10px;">${unit.listening.title}</h3>
                     <div class="tip-box" style="margin-bottom:16px;">
                         <strong>💡 Before you listen:</strong> ${unit.listening.preListening}
@@ -164,7 +165,7 @@ function renderCurriculum() {
 
                 <!-- 3. Dialogue / Speaking Practice -->
                 <div class="section-block">
-                    <span class="section-label dialogue">${secNum++}. 🗣️ Dialogue</span>
+                    <span class="section-label dialogue">${secLabels[secIdx++]}. 🗣️ Dialogue</span>
                     <h3 style="margin-bottom:10px;">${unit.dialogue.title}</h3>
                     <p style="opacity:0.75; margin-bottom:16px; font-size:0.95rem;">${unit.dialogue.situation}</p>
                     <div class="dialogue-box">
@@ -187,7 +188,7 @@ function renderCurriculum() {
 
                 <!-- 4. Grammar -->
                 <div class="section-block">
-                    <span class="section-label grammar">${secNum++}. 📐 Grammar</span>
+                    <span class="section-label grammar">${secLabels[secIdx++]}. 📐 Grammar</span>
                     <h3 style="margin-bottom:10px;">${unit.grammar.title}</h3>
                     <div class="theory-box">
                         <h4>📚 Grammar Point</h4>
@@ -221,11 +222,11 @@ function renderCurriculum() {
                 </div>
 
                 <!-- 5. Oral Practice in Context -->
-                ${unit.oralPractice ? renderOralPractice(unit.oralPractice, secNum++, unit.id) : ''}
+                ${unit.oralPractice ? renderOralPractice(unit.oralPractice, secLabels[secIdx++], unit.id) : ''}
 
                 <!-- 6. Speaking Tasks -->
                 <div class="section-block">
-                    <span class="section-label speaking">${secNum++}. 🎤 Speaking</span>
+                    <span class="section-label speaking">${secLabels[secIdx++]}. 🎤 Speaking</span>
                     <h3 style="margin-bottom:10px;">Speaking Tasks</h3>
                     ${unit.speaking.map((task, idx) => {
                         const spId = 'sp_' + unit.id + '_' + idx;
@@ -271,7 +272,7 @@ function renderCurriculum() {
                 <!-- 7. Review Fill-in-the-Blanks (previous unit) -->
                 ${unit.review ? `
                 <div class="section-block">
-                    <span class="section-label practice" style="background:rgba(251,191,36,0.2);color:#fed7aa;border:1px solid rgba(251,191,36,0.4);">${secNum++}. 📝 Review — Fill in the Blanks</span>
+                    <span class="section-label practice" style="background:rgba(251,191,36,0.2);color:#fed7aa;border:1px solid rgba(251,191,36,0.4);">${secLabels[secIdx++]}. 📝 Review — Fill in the Blanks</span>
                     <h3 style="margin-bottom:6px;">Reviewing Previous Unit Vocabulary</h3>
                     <p style="opacity:0.75;margin-bottom:18px;font-size:0.9rem;">Complete each sentence with the correct word from the previous unit.</p>
                     ${unit.review.map((item, idx) => `
@@ -292,7 +293,7 @@ function renderCurriculum() {
                 <!-- 8. Video Resources -->
                 ${unit.videos && unit.videos.length > 0 ? `
                 <div class="section-block">
-                    <span class="section-label" style="background:rgba(255,0,0,0.2);color:#fca5a5;">${secNum++}. 📺 Videos</span>
+                    <span class="section-label" style="background:rgba(255,0,0,0.2);color:#fca5a5;">${secLabels[secIdx++]}. 📺 Videos</span>
                     <h3 style="margin-bottom:8px;">Recommended Videos</h3>
                     <p style="opacity:0.75;margin-bottom:16px;font-size:0.9rem;">Watch these to hear real American English in workplace contexts:</p>
                     <div style="display:grid;gap:14px;">
@@ -314,7 +315,7 @@ function renderCurriculum() {
                 ` : ''}
 
                 <!-- 9. Video Exercise -->
-                ${unit.videoExercise ? renderVideoExercise(unit.videoExercise, unit.id, unit.title, secNum++) : ''}
+                ${unit.videoExercise ? renderVideoExercise(unit.videoExercise, unit.id, unit.title, secLabels[secIdx++]) : ''}
 
                 <!-- Progress Test (Every 4 units) -->
                 ${unit.progressTest ? `
@@ -733,59 +734,79 @@ window.checkAnswer = function(btn, isCorrect) {
 };
 
 // ─── Universal High-Quality Audio Engine ─────────────────────────────────────
-// American English, clear, professional, natural — works on all devices
+// Uses Google Translate TTS API for natural, fluid American English on all devices.
 let audioQueue = [];
 let isPlaying = false;
 let isPaused = false;
-let voices = [];
+let currentAudio = null;
 
 function initAudioEngine() {
-    if (!('speechSynthesis' in window)) return;
-    voices = window.speechSynthesis.getVoices();
-    if (window.speechSynthesis.onvoiceschanged !== undefined) {
-        window.speechSynthesis.onvoiceschanged = () => {
-            voices = window.speechSynthesis.getVoices();
-        };
-    }
-    // Retry loop for Chrome on Windows (voices often empty on first call)
-    if (voices.length === 0) {
-        let attempts = 0;
-        const retryLoad = setInterval(() => {
-            voices = window.speechSynthesis.getVoices();
-            attempts++;
-            if (voices.length > 0 || attempts >= 20) clearInterval(retryLoad);
-        }, 200);
-    }
-}
-
-function getBestVoice() {
-    if (voices.length === 0) voices = window.speechSynthesis.getVoices();
-    // Strictly prefer en-US
-    const usVoices = voices.filter(v => v.lang === 'en-US' || v.lang.startsWith('en-US'));
-    const pool = usVoices.length > 0 ? usVoices : voices.filter(v => v.lang.startsWith('en'));
-
-    // Priority order: neural/premium first
-    const priority = [
-        'Google US English', 'Google US', 'Google',
-        'Microsoft Aria', 'Microsoft Jenny', 'Microsoft Zira', 'Microsoft',
-        'Aria', 'Jenny', 'Zira', 'Monica',
-        'Enhanced', 'Premium', 'Natural',
-        'Samantha', 'Victoria'
-    ];
-    for (const kw of priority) {
-        const match = pool.find(v => v.name.includes(kw));
-        if (match) return match;
-    }
-    return pool[0] || null;
+    // No initialization needed for HTML5 Audio
 }
 
 window.playAudio = function(text) {
     window.stopAudio();
-    if (!text || !('speechSynthesis' in window)) return;
-    const chunks = splitTextForTTS(text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(), 180);
+    if (!text) return;
+    const cleanText = text.replace(/<[^>]+>/g, ' ').trim();
+    // Split text into chunks to avoid URL length limits (max 200 chars for Google TTS)
+    const chunks = splitTextForTTS(cleanText, 180);
     audioQueue = chunks;
     isPaused = false;
     processAudioQueue();
+};
+
+function processAudioQueue() {
+    if (audioQueue.length === 0) {
+        isPlaying = false;
+        return;
+    }
+    isPlaying = true;
+    const textChunk = audioQueue.shift();
+    const url = \`https://translate.google.com/translate_tts?ie=UTF-8&q=\${encodeURIComponent(textChunk)}&tl=en-US&client=tw-ob\`;
+    
+    currentAudio = new Audio(url);
+    currentAudio.onended = () => {
+        if (!isPaused) processAudioQueue();
+    };
+    currentAudio.onerror = () => {
+        // Fallback to speechSynthesis if network fails or blocked
+        if ('speechSynthesis' in window) {
+            const u = new SpeechSynthesisUtterance(textChunk);
+            u.lang = 'en-US';
+            u.onend = () => { if (!isPaused) processAudioQueue(); };
+            window.speechSynthesis.speak(u);
+        } else {
+            if (!isPaused) processAudioQueue();
+        }
+    };
+    currentAudio.play();
+}
+
+window.stopAudio = function() {
+    audioQueue = [];
+    isPlaying = false;
+    isPaused = false;
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+};
+
+window.togglePauseAudio = function() {
+    if (!isPlaying) return;
+    const btn = document.getElementById('pause-audio-btn');
+    if (isPaused) {
+        isPaused = false;
+        if (currentAudio) currentAudio.play();
+        else if ('speechSynthesis' in window) window.speechSynthesis.resume();
+        if (btn) btn.innerHTML = '⏸️ Pause';
+    } else {
+        isPaused = true;
+        if (currentAudio) currentAudio.pause();
+        else if ('speechSynthesis' in window) window.speechSynthesis.pause();
+        if (btn) btn.innerHTML = '▶️ Resume';
+    }
 };
 
 function splitTextForTTS(text, maxLen) {
@@ -798,6 +819,7 @@ function splitTextForTTS(text, maxLen) {
         if (idx === -1) idx = rem.lastIndexOf('! ', maxLen);
         if (idx === -1) idx = rem.lastIndexOf(', ', maxLen);
         if (idx === -1) idx = rem.lastIndexOf(' ', maxLen);
+
         if (idx === -1) idx = maxLen;
         chunks.push(rem.substring(0, idx + 1).trim());
         rem = rem.substring(idx + 1).trim();
