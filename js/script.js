@@ -762,7 +762,7 @@ function processAudioQueue() {
     }
     isPlaying = true;
     const textChunk = audioQueue.shift();
-    const url = \`https://translate.google.com/translate_tts?ie=UTF-8&q=\${encodeURIComponent(textChunk)}&tl=en-US&client=tw-ob\`;
+    const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(textChunk)}&tl=en-US&client=tw-ob`;
     
     currentAudio = new Audio(url);
     currentAudio.onended = () => {
