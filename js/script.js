@@ -734,81 +734,61 @@ window.checkAnswer = function(btn, isCorrect) {
 };
 
 // ─── Universal High-Quality Audio Engine ─────────────────────────────────────
-// Uses Google Translate TTS API for natural, fluid American English on all devices.
+// SpeechSynthesis engine optimized for clear American English on ALL devices
+// (phones, tablets, computers) regardless of system language settings.
 let audioQueue = [];
 let isPlaying = false;
 let isPaused = false;
-let currentAudio = null;
+let cachedVoices = [];
 
 function initAudioEngine() {
-    // No initialization needed for HTML5 Audio
-}
-
-window.playAudio = function(text) {
-    window.stopAudio();
-    if (!text) return;
-    const cleanText = text.replace(/<[^>]+>/g, ' ').trim();
-    // Split text into chunks to avoid URL length limits (max 200 chars for Google TTS)
-    const chunks = splitTextForTTS(cleanText, 180);
-    audioQueue = chunks;
-    isPaused = false;
-    processAudioQueue();
-};
-
-function processAudioQueue() {
-    if (audioQueue.length === 0) {
-        isPlaying = false;
-        return;
-    }
-    isPlaying = true;
-    const textChunk = audioQueue.shift();
-    const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(textChunk)}&tl=en-US&client=tw-ob`;
-    
-    currentAudio = new Audio(url);
-    currentAudio.onended = () => {
-        if (!isPaused) processAudioQueue();
+    if (!('speechSynthesis' in window)) return;
+    // Load voices immediately and on change (some browsers load async)
+    const loadVoices = () => {
+        cachedVoices = window.speechSynthesis.getVoices();
     };
-    currentAudio.onerror = () => {
-        // Fallback to speechSynthesis if network fails or blocked
-        if ('speechSynthesis' in window) {
-            const u = new SpeechSynthesisUtterance(textChunk);
-            u.lang = 'en-US';
-            u.onend = () => { if (!isPaused) processAudioQueue(); };
-            window.speechSynthesis.speak(u);
-        } else {
-            if (!isPaused) processAudioQueue();
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    // Some mobile browsers need a delayed retry
+    setTimeout(loadVoices, 500);
+    setTimeout(loadVoices, 1500);
+
+    // Chrome desktop bug: speechSynthesis pauses after ~15s.
+    // Keep-alive workaround: resume every 10s while speaking.
+    setInterval(() => {
+        if (window.speechSynthesis.speaking && !isPaused) {
+            window.speechSynthesis.pause();
+            window.speechSynthesis.resume();
         }
-    };
-    currentAudio.play();
+    }, 10000);
 }
 
-window.stopAudio = function() {
-    audioQueue = [];
-    isPlaying = false;
-    isPaused = false;
-    if (currentAudio) {
-        currentAudio.pause();
-        currentAudio = null;
+// Pick the best American English voice available on the device.
+// Priority: high-quality neural/natural voices > standard en-US > any English.
+function getBestVoice() {
+    if (!cachedVoices.length) cachedVoices = window.speechSynthesis.getVoices();
+    const pool = cachedVoices.filter(v => v.lang === 'en-US');
+    // Preferred voice name keywords (ordered by quality / naturalness)
+    const preferred = [
+        'Google US English',         // Chrome desktop — very clear
+        'Microsoft Jenny',           // Edge / Windows 11 — neural, natural
+        'Microsoft Aria',            // Edge / Windows 11 — neural
+        'Microsoft Guy',             // Edge / Windows 11 — male neural
+        'Samantha',                  // macOS / iOS — high quality
+        'Alex',                      // macOS
+        'Zira',                      // Older Windows
+        'David',                     // Older Windows
+        'English United States'      // Some Android devices
+    ];
+    for (const kw of preferred) {
+        const match = pool.find(v => v.name.includes(kw));
+        if (match) return match;
     }
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-};
+    // Fallback: any en-US voice, then any English voice
+    return pool[0] || cachedVoices.find(v => v.lang.startsWith('en')) || null;
+}
 
-window.togglePauseAudio = function() {
-    if (!isPlaying) return;
-    const btn = document.getElementById('pause-audio-btn');
-    if (isPaused) {
-        isPaused = false;
-        if (currentAudio) currentAudio.play();
-        else if ('speechSynthesis' in window) window.speechSynthesis.resume();
-        if (btn) btn.innerHTML = '⏸️ Pause';
-    } else {
-        isPaused = true;
-        if (currentAudio) currentAudio.pause();
-        else if ('speechSynthesis' in window) window.speechSynthesis.pause();
-        if (btn) btn.innerHTML = '▶️ Resume';
-    }
-};
-
+// Split long text into chunks at sentence/clause boundaries
 function splitTextForTTS(text, maxLen) {
     const chunks = [];
     let rem = text;
@@ -819,7 +799,6 @@ function splitTextForTTS(text, maxLen) {
         if (idx === -1) idx = rem.lastIndexOf('! ', maxLen);
         if (idx === -1) idx = rem.lastIndexOf(', ', maxLen);
         if (idx === -1) idx = rem.lastIndexOf(' ', maxLen);
-
         if (idx === -1) idx = maxLen;
         chunks.push(rem.substring(0, idx + 1).trim());
         rem = rem.substring(idx + 1).trim();
@@ -827,26 +806,48 @@ function splitTextForTTS(text, maxLen) {
     return chunks;
 }
 
+window.playAudio = function(text) {
+    window.stopAudio();
+    if (!text || !('speechSynthesis' in window)) return;
+    const cleanText = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!cleanText) return;
+    audioQueue = splitTextForTTS(cleanText, 180);
+    isPaused = false;
+    processAudioQueue();
+};
+
 function processAudioQueue() {
-    if (isPaused || audioQueue.length === 0) { isPlaying = false; return; }
+    if (isPaused || audioQueue.length === 0) {
+        isPlaying = audioQueue.length > 0; // still playing if just paused
+        if (audioQueue.length === 0) isPlaying = false;
+        return;
+    }
     isPlaying = true;
     const text = audioQueue.shift();
     const utt = new SpeechSynthesisUtterance(text);
-    utt.lang  = 'en-US';
-    utt.rate  = 0.95;   // Slightly slower for A1 learners — still natural
+    utt.lang = 'en-US';
+    utt.rate = 0.92;    // Slightly slower for A2 learners — still natural & fluid
     utt.pitch = 1.0;
+    utt.volume = 1.0;
     const voice = getBestVoice();
     if (voice) utt.voice = voice;
-    utt.onend  = () => { if (isPlaying && !isPaused) setTimeout(processAudioQueue, 350); else processAudioQueue(); };
-    utt.onerror = () => processAudioQueue();
+    utt.onend = () => {
+        if (isPlaying && !isPaused) {
+            setTimeout(processAudioQueue, 300); // Natural pause between chunks
+        }
+    };
+    utt.onerror = () => {
+        // Skip failed chunk and continue with next
+        if (isPlaying && !isPaused) processAudioQueue();
+    };
     window.speechSynthesis.speak(utt);
 }
 
 window.stopAudio = function() {
     audioQueue = [];
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     isPlaying = false;
-    isPaused  = false;
+    isPaused = false;
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     updatePauseBtn(false);
 };
 
@@ -967,6 +968,7 @@ window.deletePayment = function(id) {
     loadPayments();
 };
 
+window.progressTestScores = {};
 window.progressTestListeningScores = {};
 
 window.checkProgressTestListeningAnswer = function (btn, isCorrect, unitId, questionIndex) {
