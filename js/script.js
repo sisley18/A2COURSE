@@ -43,6 +43,79 @@ window.navigateUnit = function(direction) {
 };
 
 // ─── Curriculum Renderer ─────────────────────────────────────────────────────
+
+function renderProgressTestHTML(testObj, unitId) {
+    return `
+    <div class="section-block progress-test-block" style="background: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(245,158,11,0.15)); padding: 25px; border-radius: 20px; border: 2px solid var(--accent-gold); margin-top: 30px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15);">
+        <h4 style="color: var(--accent-gold); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 800;">
+            <span style="font-size: 1.5rem;">🏆</span> ${testObj.title}
+        </h4>
+        
+        <!-- 1. Listening Assessment -->
+        ${testObj.listening ? `
+        <div style="margin-bottom: 20px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid rgba(251,191,36,0.25);">
+            <h5 style="color: var(--accent-gold); margin-top: 0; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-size: 1rem; font-weight: 800;">
+                <span>🎧</span> Listening Assessment
+            </h5>
+            <div class="player-controls" style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.25); padding: 10px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.2);">
+                <button class="play-btn" style="width: 36px; height: 36px; border-radius: 50%; font-size: 1rem; cursor: pointer; border: none; background: var(--accent-gold); color: black;" onclick="playAudio('${testObj.listening.transcript.replace(/'/g, "\\'")}')">🔊</button>
+                <span style="font-size: 0.9rem; color: #fed7aa; font-weight: 600;">Play Audio Track (American Accent)</span>
+            </div>
+            ${testObj.listening.questions.map((lq, lqi) => `
+                <div style="margin-bottom: 12px;">
+                    <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: #f3f4f6;">L${lqi+1}. ${lq.q}</p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        ${lq.options.map((opt, oi) => `
+                            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="checkProgressTestListeningAnswer(this, ${oi === lq.correct}, '${unitId}', ${lqi})">${opt}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+
+        <p style="font-size: 0.95rem; color: #fed7aa; margin-bottom: 20px; font-weight: 700; border-top: 1px dashed rgba(251,191,36,0.3); padding-top: 15px;">
+            📝 Core Evaluation Questions:
+        </p>
+        <div id="progress-test-questions-${unitId}">
+            ${testObj.questions.map((q, qi) => `
+                <div style="margin-bottom: 18px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; border: 1px solid rgba(251,191,36,0.25);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; color: #f3f4f6; flex: 1;">${qi+1}. ${q.q}</p>
+                        <button class="play-btn" style="width: 24px; height: 24px; font-size: 0.7rem; margin-left: 10px;" onclick="playAudio('${q.q.replace(/'/g, "\\'")}')">🔊</button>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        ${q.options.map((opt, oi) => `
+                            <button class="btn pt-option-btn" style="padding: 8px 16px; font-size: 0.85rem; border-color: rgba(251,191,36,0.4);" onclick="checkProgressTestAnswer(this, ${oi === q.correct}, '${unitId}', ${qi})">${opt}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+
+        <!-- 3. Oral Assessment Situation -->
+        ${testObj.speaking ? `
+        <div style="margin-top: 20px; background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 16px; border: 1px solid rgba(239, 68, 68, 0.3); margin-bottom: 15px;">
+            <h5 style="color: #f87171; margin-top: 0; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-size: 1rem; font-weight: 800;">
+                <span>🗣️</span> Oral Assessment Situation
+            </h5>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; color: #f3f4f6;">${testObj.speaking.prompt}</p>
+            <p style="font-size: 0.85rem; color: #9ca3af; font-style: italic; margin-bottom: 12px;">${testObj.speaking.promptEs}</p>
+            <div style="margin-top: 10px;">
+                <label style="display: block; font-weight: bold; font-size: 0.85rem; color: #f87171; margin-bottom: 5px;">Your Written Response (Tu respuesta escrita):</label>
+                <textarea id="pt-speaking-text-${unitId}" rows="3" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.3); background: rgba(0,0,0,0.3); color: #fff; font-family: inherit; font-size: 0.9rem; outline: none; resize: vertical;" placeholder="Type your response here..."></textarea>
+            </div>
+        </div>
+        ` : ''}
+
+        <div id="pt-result-${unitId}" style="margin-top: 20px; display: none; padding: 15px; border-radius: 12px; font-weight: bold; text-align: center;"></div>
+        <button class="btn btn-primary" id="btn-send-pt-${unitId}" style="width: 100%; justify-content: center; background: #25D366; margin-top: 15px; display: none; border: none; font-weight: 700;" onclick="sendProgressTestToWhatsApp('${unitId}')">
+            SEND TEST RESULTS TO TEACHER 📱
+        </button>
+    </div>
+    `;
+}
+
 function renderCurriculum() {
     const container = document.getElementById('curriculum-container');
     if (!container) return;
@@ -318,75 +391,10 @@ function renderCurriculum() {
                 ${unit.videoExercise ? renderVideoExercise(unit.videoExercise, unit.id, unit.title, secLabels[secIdx++]) : ''}
 
                 <!-- Progress Test (Every 4 units) -->
-                ${unit.progressTest ? `
-                <div class="section-block progress-test-block" style="background: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(245,158,11,0.15)); padding: 25px; border-radius: 20px; border: 2px solid var(--accent-gold); margin-top: 30px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15);">
-                    <h4 style="color: var(--accent-gold); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 800;">
-                        <span style="font-size: 1.5rem;">🏆</span> ${unit.progressTest.title}
-                    </h4>
-                    
-                    <!-- 1. Listening Assessment -->
-                    ${unit.progressTest.listening ? `
-                    <div style="margin-bottom: 20px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border: 1px solid rgba(251,191,36,0.25);">
-                        <h5 style="color: var(--accent-gold); margin-top: 0; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-size: 1rem; font-weight: 800;">
-                            <span>🎧</span> Listening Assessment
-                        </h5>
-                        <div class="player-controls" style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.25); padding: 10px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.2);">
-                            <button class="play-btn" style="width: 36px; height: 36px; border-radius: 50%; font-size: 1rem; cursor: pointer; border: none; background: var(--accent-gold); color: black;" onclick="playAudio('${unit.progressTest.listening.transcript.replace(/'/g, "\\'")}')">🔊</button>
-                            <span style="font-size: 0.9rem; color: #fed7aa; font-weight: 600;">Play Audio Track (American Accent)</span>
-                        </div>
-                        ${unit.progressTest.listening.questions.map((lq, lqi) => `
-                            <div style="margin-bottom: 12px;">
-                                <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: #f3f4f6;">L${lqi+1}. ${lq.q}</p>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                    ${lq.options.map((opt, oi) => `
-                                        <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="checkProgressTestListeningAnswer(this, ${oi === lq.correct}, ${unit.id}, ${lqi})">${opt}</button>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    ` : ''}
-
-                    <p style="font-size: 0.95rem; color: #fed7aa; margin-bottom: 20px; font-weight: 700; border-top: 1px dashed rgba(251,191,36,0.3); padding-top: 15px;">
-                        📝 Core Evaluation Questions:
-                    </p>
-                    <div id="progress-test-questions-${unit.id}">
-                        ${unit.progressTest.questions.map((q, qi) => `
-                            <div style="margin-bottom: 18px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; border: 1px solid rgba(251,191,36,0.25);">
-                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                    <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; color: #f3f4f6; flex: 1;">${qi+1}. ${q.q}</p>
-                                    <button class="play-btn" style="width: 24px; height: 24px; font-size: 0.7rem; margin-left: 10px;" onclick="playAudio('${q.q.replace(/'/g, "\\'")}')">🔊</button>
-                                </div>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                    ${q.options.map((opt, oi) => `
-                                        <button class="btn pt-option-btn" style="padding: 8px 16px; font-size: 0.85rem; border-color: rgba(251,191,36,0.4);" onclick="checkProgressTestAnswer(this, ${oi === q.correct}, ${unit.id}, ${qi})">${opt}</button>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-
-                    <!-- 3. Oral Assessment Situation -->
-                    ${unit.progressTest.speaking ? `
-                    <div style="margin-top: 20px; background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 16px; border: 1px solid rgba(239, 68, 68, 0.3); margin-bottom: 15px;">
-                        <h5 style="color: #f87171; margin-top: 0; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-size: 1rem; font-weight: 800;">
-                            <span>🗣️</span> Oral Assessment Situation
-                        </h5>
-                        <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; color: #f3f4f6;">${unit.progressTest.speaking.prompt}</p>
-                        <p style="font-size: 0.85rem; color: #9ca3af; font-style: italic; margin-bottom: 12px;">${unit.progressTest.speaking.promptEs}</p>
-                        <div style="margin-top: 10px;">
-                            <label style="display: block; font-weight: bold; font-size: 0.85rem; color: #f87171; margin-bottom: 5px;">Your Written Response (Tu respuesta escrita):</label>
-                            <textarea id="pt-speaking-text-${unit.id}" rows="3" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.3); background: rgba(0,0,0,0.3); color: #fff; font-family: inherit; font-size: 0.9rem; outline: none; resize: vertical;" placeholder="Type your response here..."></textarea>
-                        </div>
-                    </div>
-                    ` : ''}
-
-                    <div id="pt-result-${unit.id}" style="margin-top: 20px; display: none; padding: 15px; border-radius: 12px; font-weight: bold; text-align: center;"></div>
-                    <button class="btn btn-primary" id="btn-send-pt-${unit.id}" style="width: 100%; justify-content: center; background: #25D366; margin-top: 15px; display: none; border: none; font-weight: 700;" onclick="sendProgressTestToWhatsApp(${unit.id})">
-                        SEND TEST RESULTS TO TEACHER 📱
-                    </button>
-                </div>
-                ` : ''}
+                ${unit.progressTest ? renderProgressTestHTML(unit.progressTest, unit.id) : ''}
+                
+                <!-- Progress Test B -->
+                ${unit.progressTestB ? renderProgressTestHTML(unit.progressTestB, unit.id + 'B') : ''}
 
             </div>
         `;
@@ -1014,14 +1022,17 @@ window.checkProgressTestAnswer = function (btn, isCorrect, unitId, questionIndex
 };
 
 function checkProgressTestOverallCompletion(unitId) {
-    const unit = courseData.units.find(u => u.id === unitId);
-    if (!unit || !unit.progressTest) return;
+    const isVersionB = String(unitId).endsWith('B');
+    const realUnitId = isVersionB ? parseInt(String(unitId).replace('B', '')) : unitId;
+    const unit = courseData.units.find(u => u.id === realUnitId);
+    const testObj = isVersionB ? unit.progressTestB : unit.progressTest;
+    if (!unit || !testObj) return;
     
     const coreAnswered = Object.keys(window.progressTestScores[unitId] || {}).length;
-    const coreTotal = unit.progressTest.questions.length;
+    const coreTotal = testObj.questions.length;
     
     const listenAnswered = Object.keys(window.progressTestListeningScores[unitId] || {}).length;
-    const listenTotal = unit.progressTest.listening ? unit.progressTest.listening.questions.length : 0;
+    const listenTotal = testObj.listening ? testObj.listening.questions.length : 0;
     
     if (coreAnswered === coreTotal && listenAnswered === listenTotal) {
         const coreCorrect = Object.values(window.progressTestScores[unitId] || {}).filter(v => v).length;
@@ -1050,22 +1061,25 @@ function checkProgressTestOverallCompletion(unitId) {
 }
 
 window.sendProgressTestToWhatsApp = function(unitId) {
-    const unit = courseData.units.find(u => u.id === unitId);
-    if (!unit || !unit.progressTest) return;
+    const isVersionB = String(unitId).endsWith('B');
+    const realUnitId = isVersionB ? parseInt(String(unitId).replace('B', '')) : unitId;
+    const unit = courseData.units.find(u => u.id === realUnitId);
+    const testObj = isVersionB ? unit.progressTestB : unit.progressTest;
+    if (!unit || !testObj) return;
     
     const coreMap = window.progressTestScores[unitId] || {};
     const coreCorrect = Object.values(coreMap).filter(v => v).length;
-    const coreTotal = unit.progressTest.questions.length;
+    const coreTotal = testObj.questions.length;
     
     const listenMap = window.progressTestListeningScores[unitId] || {};
     const listenCorrect = Object.values(listenMap).filter(v => v).length;
-    const listenTotal = unit.progressTest.listening ? unit.progressTest.listening.questions.length : 0;
+    const listenTotal = testObj.listening ? testObj.listening.questions.length : 0;
     
     const totalCorrect = coreCorrect + listenCorrect;
     const totalQuestions = coreTotal + listenTotal;
     const percentage = Math.round((totalCorrect / totalQuestions) * 100);
     
-    let report = `*A2 Hospitality English - ${unit.progressTest.title} Results*\n\n`;
+    let report = `*A2 Hospitality English - ${testObj.title} Results*\n\n`;
     report += `*Final Score:* ${totalCorrect}/${totalQuestions} (${percentage}%)\n`;
     report += `*Result:* ${percentage >= 70 ? 'PASSED ✅' : 'NEEDS REVIEW ❌'}\n\n`;
     
@@ -1074,8 +1088,8 @@ window.sendProgressTestToWhatsApp = function(unitId) {
     }
     report += `*Core Questions Score:* ${coreCorrect}/${coreTotal}\n\n`;
     
-    if (unit.progressTest.speaking) {
-        report += `*Speaking Task:* ${unit.progressTest.speaking.prompt}\n`;
+    if (testObj.speaking) {
+        report += `*Speaking Task:* ${testObj.speaking.prompt}\n`;
         const textAnsEl = document.getElementById(`pt-speaking-text-${unitId}`);
         const textAns = textAnsEl ? textAnsEl.value.trim() : "";
         if (textAns) {

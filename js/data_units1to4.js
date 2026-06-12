@@ -426,6 +426,43 @@ questions:[
 {q:'Turndown service is provided:', options:['in the morning','in the evening','at checkout'], correct:1},
 {q:'A written record of tasks completed by housekeeping is called a cleaning:', options:['form','note','log'], correct:2}
 ]
+},
+progressTestB:{
+title:'Progress Test 1 — Version B (Units 1–4)',
+listening:{
+transcript:'Good afternoon, team. For tonight\\'s dinner service, our special is the grilled salmon — it is served with mashed potatoes and asparagus. Please pay attention to dietary needs. Table 7 has a guest with a severe seafood allergy, so they will need the vegan pasta. Also, table 10 needs a high chair for a toddler. Let\\'s make sure everything runs smoothly!',
+questions:[
+{q:'What is the special for tonight\\'s dinner?', options:['Grilled salmon','Vegan pasta','Mashed potatoes'], correct:0},
+{q:'What does table 7 need?', options:['A high chair','A seafood-free option','More asparagus'], correct:1}
+]
+},
+speaking:{
+prompt:'Oral Situation: You are a restaurant server. A guest asks for a recommendation but mentions they are allergic to dairy. Recommend a dish that is dairy-free, explain what it contains, and ask if they would like to start with a drink.',
+promptEs:'Situación oral: Sos un mesero/a de restaurante. Un cliente pide una recomendación pero menciona que es alérgico a los lácteos. Recomendá un plato sin lácteos, explicá qué contiene y preguntá si quieren empezar con una bebida.',
+model:'Good evening! Since you are allergic to dairy, I highly recommend our roasted chicken. It\\'s made with herbs and lemon, and it comes with a side of grilled vegetables. It\\'s completely dairy-free. Would you like to start with a drink while you decide?'
+},
+questions:[
+{q:'To give food a flavor using salt and pepper is to:', options:['garnish','season','serve'], correct:1},
+{q:'A dish served alongside the main course is called a:', options:['side dish','special','signature dish'], correct:0},
+{q:'Food with no animal products is:', options:['gluten-free','vegan','vegetarian'], correct:1},
+{q:'When a reservation is cancelled, it is a:', options:['confirmation','cancellation','booking'], correct:1},
+{q:'A group of people dining together is called a:', options:['party','team','table'], correct:0},
+{q:'\"___ you like me to book a table for you?\" — polite offer.', options:['Would','Must','Do'], correct:0},
+{q:'A room with two separate single beds is a:', options:['double room','suite','twin room'], correct:2},
+{q:'The hotel staff who helps with restaurant recommendations is the:', options:['receptionist','concierge','manager'], correct:1},
+{q:'\"Availability\" in a hotel means:', options:['free rooms or tables','the price of the room','the location'], correct:0},
+{q:'A platform outside a room where guests can sit is a:', options:['balcony','lounge','lobby'], correct:0},
+{q:'A thorough cleaning of a room is called a:', options:['quick clean','deep clean','room service'], correct:1},
+{q:'PPE means:', options:['Public Protective Equipment','Personal Protective Equipment','Private Property Equipment'], correct:1},
+{q:'To make a surface free of germs is to:', options:['sanitize','wash','dust'], correct:0},
+{q:'Bed sheets and towels are called:', options:['linen','amenities','supplies'], correct:0},
+{q:'Using the same cloth for the bathroom and bedroom causes:', options:['cross-contamination','sanitization','cleanliness'], correct:0},
+{q:'\"It ___ with a side salad.\"', options:['goes','makes','comes'], correct:2},
+{q:'\"You ___ enter an occupied room without knocking.\"', options:['have to','mustn\\'t','could'], correct:1},
+{q:'A small refrigerator in a hotel room is a:', options:['minibar','freezer','cooler'], correct:0},
+{q:'An evening service to prepare the bed for sleeping is:', options:['turndown service','cleaning service','room service'], correct:0},
+{q:'A written record of tasks is a:', options:['note','log','book'], correct:1}
+]
 }
 }
 ]};
