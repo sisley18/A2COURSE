@@ -747,53 +747,18 @@ window.checkAnswer = function(btn, isCorrect) {
 let audioQueue = [];
 let isPlaying = false;
 let isPaused = false;
-let cachedVoices = [];
+let currentAudioNode = null;
+let audioQueue = [];
+let isPlaying = false;
+let isPaused = false;
 
 function initAudioEngine() {
-    if (!('speechSynthesis' in window)) return;
-    // Load voices immediately and on change (some browsers load async)
-    const loadVoices = () => {
-        cachedVoices = window.speechSynthesis.getVoices();
-    };
-    loadVoices();
-    window.speechSynthesis.onvoiceschanged = loadVoices;
-    // Some mobile browsers need a delayed retry
-    setTimeout(loadVoices, 500);
-    setTimeout(loadVoices, 1500);
-
-    // Chrome desktop bug: speechSynthesis pauses after ~15s.
-    // Keep-alive workaround: resume every 10s while speaking.
-    setInterval(() => {
-        if (window.speechSynthesis.speaking && !isPaused) {
-            window.speechSynthesis.pause();
-            window.speechSynthesis.resume();
-        }
-    }, 10000);
-}
-
-// Pick the best American English voice available on the device.
-// Priority: high-quality neural/natural voices > standard en-US > any English.
-function getBestVoice() {
-    if (!cachedVoices.length) cachedVoices = window.speechSynthesis.getVoices();
-    const pool = cachedVoices.filter(v => v.lang === 'en-US');
-    // Preferred voice name keywords (ordered by quality / naturalness)
-    const preferred = [
-        'Google US English',         // Chrome desktop — very clear
-        'Microsoft Jenny',           // Edge / Windows 11 — neural, natural
-        'Microsoft Aria',            // Edge / Windows 11 — neural
-        'Microsoft Guy',             // Edge / Windows 11 — male neural
-        'Samantha',                  // macOS / iOS — high quality
-        'Alex',                      // macOS
-        'Zira',                      // Older Windows
-        'David',                     // Older Windows
-        'English United States'      // Some Android devices
-    ];
-    for (const kw of preferred) {
-        const match = pool.find(v => v.name.includes(kw));
-        if (match) return match;
+    // Pre-load voices for the fallback mechanism
+    if ('speechSynthesis' in window) {
+        const loadVoices = () => window.speechSynthesis.getVoices();
+        loadVoices();
+        window.speechSynthesis.onvoiceschanged = loadVoices;
     }
-    // Fallback: any en-US voice, then any English voice
-    return pool[0] || cachedVoices.find(v => v.lang.startsWith('en')) || null;
 }
 
 // Split long text into chunks at sentence/clause boundaries
@@ -816,7 +781,7 @@ function splitTextForTTS(text, maxLen) {
 
 window.playAudio = function(text) {
     window.stopAudio();
-    if (!text || !('speechSynthesis' in window)) return;
+    if (!text) return;
     const cleanText = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
     if (!cleanText) return;
     audioQueue = splitTextForTTS(cleanText, 180);
@@ -826,27 +791,61 @@ window.playAudio = function(text) {
 
 function processAudioQueue() {
     if (isPaused || audioQueue.length === 0) {
-        isPlaying = audioQueue.length > 0; // still playing if just paused
+        isPlaying = audioQueue.length > 0;
         if (audioQueue.length === 0) isPlaying = false;
         return;
     }
     isPlaying = true;
     const text = audioQueue.shift();
+    
+    // High-quality natural American English using Google TTS (works across all devices natively)
+    const url = 'https://translate.google.com/translate_tts?ie=UTF-8&tl=en-US&client=tw-ob&q=' + encodeURIComponent(text);
+    const audio = new Audio(url);
+    currentAudioNode = audio;
+    
+    audio.onended = () => {
+        currentAudioNode = null;
+        if (isPlaying && !isPaused) setTimeout(processAudioQueue, 300);
+    };
+    
+    audio.onerror = () => {
+        currentAudioNode = null;
+        fallbackTTS(text);
+    };
+    
+    audio.play().catch(e => {
+        currentAudioNode = null;
+        fallbackTTS(text);
+    });
+}
+
+function fallbackTTS(text) {
+    if (!('speechSynthesis' in window)) {
+        if (isPlaying && !isPaused) setTimeout(processAudioQueue, 300);
+        return;
+    }
     const utt = new SpeechSynthesisUtterance(text);
     utt.lang = 'en-US';
-    utt.rate = 0.92;    // Slightly slower for A2 learners — still natural & fluid
+    utt.rate = 0.92;
     utt.pitch = 1.0;
     utt.volume = 1.0;
-    const voice = getBestVoice();
+    
+    const voices = window.speechSynthesis.getVoices();
+    const pool = voices.filter(v => v.lang === 'en-US');
+    const pref = ['Google US English', 'Microsoft Jenny', 'Microsoft Aria', 'Samantha', 'Alex', 'Zira'];
+    let voice = null;
+    for (const kw of pref) { 
+        voice = pool.find(v => v.name.includes(kw)); 
+        if (voice) break; 
+    }
+    if (!voice) voice = pool[0] || voices.find(v => v.lang.startsWith('en'));
     if (voice) utt.voice = voice;
+    
     utt.onend = () => {
-        if (isPlaying && !isPaused) {
-            setTimeout(processAudioQueue, 300); // Natural pause between chunks
-        }
+        if (isPlaying && !isPaused) setTimeout(processAudioQueue, 300);
     };
     utt.onerror = () => {
-        // Skip failed chunk and continue with next
-        if (isPlaying && !isPaused) processAudioQueue();
+        if (isPlaying && !isPaused) setTimeout(processAudioQueue, 300);
     };
     window.speechSynthesis.speak(utt);
 }
@@ -855,23 +854,37 @@ window.stopAudio = function() {
     audioQueue = [];
     isPlaying = false;
     isPaused = false;
+    if (currentAudioNode) {
+        currentAudioNode.pause();
+        currentAudioNode = null;
+    }
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     updatePauseBtn(false);
 };
 
 window.pauseAudio = function() {
-    if ('speechSynthesis' in window && window.speechSynthesis.speaking && !isPaused) {
-        window.speechSynthesis.pause();
+    if (isPlaying && !isPaused) {
+        if (currentAudioNode) {
+            currentAudioNode.pause();
+        } else if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+            window.speechSynthesis.pause();
+        }
         isPaused = true;
         updatePauseBtn(true);
     }
 };
 
 window.resumeAudio = function() {
-    if ('speechSynthesis' in window && isPaused) {
+    if (isPaused) {
         isPaused = false;
         updatePauseBtn(false);
-        window.speechSynthesis.resume();
+        if (currentAudioNode) {
+            currentAudioNode.play();
+        } else if ('speechSynthesis' in window) {
+            window.speechSynthesis.resume();
+        } else {
+            processAudioQueue();
+        }
     }
 };
 
