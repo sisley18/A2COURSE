@@ -748,9 +748,6 @@ let audioQueue = [];
 let isPlaying = false;
 let isPaused = false;
 let currentAudioNode = null;
-let audioQueue = [];
-let isPlaying = false;
-let isPaused = false;
 
 function initAudioEngine() {
     // Pre-load voices for the fallback mechanism
