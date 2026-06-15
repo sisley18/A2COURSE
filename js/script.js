@@ -747,18 +747,27 @@ window.checkAnswer = function(btn, isCorrect) {
 let audioQueue = [];
 let isPlaying = false;
 let isPaused = false;
-let currentAudioNode = null;
+let cachedVoices = [];
 
 function initAudioEngine() {
-    // Pre-load voices for the fallback mechanism
     if ('speechSynthesis' in window) {
-        const loadVoices = () => window.speechSynthesis.getVoices();
+        const loadVoices = () => { cachedVoices = window.speechSynthesis.getVoices(); };
         loadVoices();
         window.speechSynthesis.onvoiceschanged = loadVoices;
     }
 }
 
-// Split long text into chunks at sentence/clause boundaries
+function getBestVoice() {
+    if (!cachedVoices.length) cachedVoices = window.speechSynthesis.getVoices();
+    const pool = cachedVoices.filter(v => v.lang.startsWith('en'));
+    const pref = ['Google US English', 'Microsoft Jenny', 'Microsoft Aria', 'Samantha', 'Alex', 'Zira'];
+    for (const kw of pref) { 
+        const match = pool.find(v => v.name.includes(kw)); 
+        if (match) return match; 
+    }
+    return pool.find(v => v.lang === 'en-US') || pool[0] || null;
+}
+
 function splitTextForTTS(text, maxLen) {
     const chunks = [];
     let rem = text;
@@ -778,7 +787,7 @@ function splitTextForTTS(text, maxLen) {
 
 window.playAudio = function(text) {
     window.stopAudio();
-    if (!text) return;
+    if (!text || !('speechSynthesis' in window)) return;
     const cleanText = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
     if (!cleanText) return;
     audioQueue = splitTextForTTS(cleanText, 180);
@@ -794,48 +803,12 @@ function processAudioQueue() {
     }
     isPlaying = true;
     const text = audioQueue.shift();
-    
-    // High-quality natural American English using Google TTS (works across all devices natively)
-    const url = 'https://translate.google.com/translate_tts?ie=UTF-8&tl=en-US&client=tw-ob&q=' + encodeURIComponent(text);
-    const audio = new Audio(url);
-    currentAudioNode = audio;
-    
-    audio.onended = () => {
-        currentAudioNode = null;
-        if (isPlaying && !isPaused) setTimeout(processAudioQueue, 300);
-    };
-    
-    audio.onerror = () => {
-        currentAudioNode = null;
-        fallbackTTS(text);
-    };
-    
-    audio.play().catch(e => {
-        currentAudioNode = null;
-        fallbackTTS(text);
-    });
-}
-
-function fallbackTTS(text) {
-    if (!('speechSynthesis' in window)) {
-        if (isPlaying && !isPaused) setTimeout(processAudioQueue, 300);
-        return;
-    }
     const utt = new SpeechSynthesisUtterance(text);
     utt.lang = 'en-US';
-    utt.rate = 0.92;
+    utt.rate = 0.90; // Slower rate to sound more natural and less robotic
     utt.pitch = 1.0;
-    utt.volume = 1.0;
     
-    const voices = window.speechSynthesis.getVoices();
-    const pool = voices.filter(v => v.lang === 'en-US');
-    const pref = ['Google US English', 'Microsoft Jenny', 'Microsoft Aria', 'Samantha', 'Alex', 'Zira'];
-    let voice = null;
-    for (const kw of pref) { 
-        voice = pool.find(v => v.name.includes(kw)); 
-        if (voice) break; 
-    }
-    if (!voice) voice = pool[0] || voices.find(v => v.lang.startsWith('en'));
+    const voice = getBestVoice();
     if (voice) utt.voice = voice;
     
     utt.onend = () => {
@@ -851,19 +824,13 @@ window.stopAudio = function() {
     audioQueue = [];
     isPlaying = false;
     isPaused = false;
-    if (currentAudioNode) {
-        currentAudioNode.pause();
-        currentAudioNode = null;
-    }
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     updatePauseBtn(false);
 };
 
 window.pauseAudio = function() {
     if (isPlaying && !isPaused) {
-        if (currentAudioNode) {
-            currentAudioNode.pause();
-        } else if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+        if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
             window.speechSynthesis.pause();
         }
         isPaused = true;
@@ -875,9 +842,7 @@ window.resumeAudio = function() {
     if (isPaused) {
         isPaused = false;
         updatePauseBtn(false);
-        if (currentAudioNode) {
-            currentAudioNode.play();
-        } else if ('speechSynthesis' in window) {
+        if ('speechSynthesis' in window) {
             window.speechSynthesis.resume();
         } else {
             processAudioQueue();
