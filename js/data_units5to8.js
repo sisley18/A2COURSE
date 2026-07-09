@@ -405,6 +405,82 @@ courseData.units = courseData.units.concat([
                 { q: 'When a waiter says "I will bring it right away," they are:', qEs: 'Cuando un mesero dice "Lo traeré enseguida", está:', options: ['making a spontaneous promise', 'stating a rule', 'making a request'], optionsEs: ['haciendo una promesa espontánea', 'estableciendo una regla', 'haciendo una solicitud'], correct: 0 },
                 { q: 'If you "escalate" a problem, you:', qEs: 'Si usted "escala" (escalate) un problema, usted:', options: ['pass it to a manager', 'ignore it completely', 'solve it yourself'], optionsEs: ['lo pasa a un gerente', 'lo ignora por completo', 'lo resuelve usted mismo'], correct: 0 }
             ]
+        },
+        progressTest: {
+            title: 'Progress Test 2 — A2 (Units 5–8)',
+            listening: {
+                transcript: 'Listen to the manager handling a complex situation: Good evening, Mr. Davis. I understand you had an issue with your dinner and your room. I sincerely apologize for the delay in the restaurant; our signature dish takes a bit longer, but forty minutes is unacceptable. As compensation, we have removed the charge for your meal. Regarding the room, I will upgrade you to a suite with an ocean view immediately, and I will have housekeeping bring fresh amenities and sanitize the new room before you enter. Could I help you with anything else?',
+                questions: [
+                    { q: 'What is the guest complaining about?', options: ['The price of the room', 'A delay in the restaurant and a room issue', 'The hotel amenities'], correct: 1 },
+                    { q: 'What does the manager offer as compensation for the restaurant delay?', options: ['A free dessert', 'They removed the charge for the meal', 'A discount on the next stay'], correct: 1 },
+                    { q: 'What is the solution for the room issue?', options: ['A room upgrade and fresh amenities', 'A new bed', 'A refund for the room'], correct: 0 }
+                ]
+            },
+            speaking: {
+                prompt: 'Oral Situation: A guest is complaining about a dirty room and cold food from room service. Apologize, offer a solution, and explain what you will do next. Use "I sincerely apologize", "I will", and "compensation".',
+                promptEs: 'Situación oral: Un huésped se queja de una habitación sucia y comida fría del servicio de habitaciones. Disculpate, ofrecé una solución y explicá qué harás a continuación. Usá "I sincerely apologize", "I will" y "compensation".',
+                model: 'I sincerely apologize for the condition of your room and the cold food. That is unacceptable. I will send housekeeping to sanitize your room immediately. As compensation, I will send a fresh, hot meal right away, completely complimentary. Could I offer you a drink while you wait?'
+            },
+            questions: [
+                { q: 'To express deep regret for a mistake, you say "I sincerely ___."', options: ['empathize', 'apologize', 'escalate'], correct: 1 },
+                { q: 'When a guest has a problem you can\'t solve, you should ___ it to a manager.', options: ['escalate', 'sanitize', 'ignore'], correct: 0 },
+                { q: 'The extra items and services a hotel provides (like shampoo or a gym) are called:', options: ['portions', 'amenities', 'PPE'], correct: 1 },
+                { q: 'A dish the restaurant is famous for is the:', options: ['signature dish', 'dietary restriction', 'complimentary dish'], correct: 0 },
+                { q: 'If food is free because of a problem, it is:', options: ['complimentary', 'expensive', 'reserved'], correct: 0 },
+                { q: 'To clean a surface completely to kill germs is to:', options: ['upgrade', 'sanitize', 'escalate'], correct: 1 },
+                { q: '"The guest ___ (wait) in the lobby for an hour." (Past simple)', options: ['waited', 'waits', 'waiting'], correct: 0 },
+                { q: '"Staff ___ wear PPE when using strong chemicals." (Obligation)', options: ['would', 'must', 'could'], correct: 1 },
+                { q: '"I ___ personally correct the mistake on your bill." (Promise)', options: ['must', 'will', 'could'], correct: 1 },
+                { q: 'A vegan diet is an example of a:', options: ['signature dish', 'dietary restriction', 'complimentary item'], correct: 1 },
+                { q: 'Something offered to make up for a problem is called:', options: ['compensation', 'reservation', 'escalation'], correct: 0 },
+                { q: '"___ I request a late check-out?" (Polite request)', options: ['Must', 'Will', 'Could'], correct: 2 },
+                { q: 'The equipment worn to protect staff (like gloves) is called:', options: ['VIP', 'PPE', 'ETA'], correct: 1 },
+                { q: '"The manager ___ (offer) a free breakfast yesterday." (Past simple)', options: ['offers', 'offered', 'offering'], correct: 1 },
+                { q: 'When you understand and share a guest\'s feelings, you ___ with them.', options: ['empathize', 'argue', 'escalate'], correct: 0 },
+                { q: 'To move a guest to a better room is to give them an:', options: ['upgrade', 'amenity', 'escalation'], correct: 0 },
+                { q: 'Money returned to a guest because of a problem is a:', options: ['refund', 'reservation', 'restriction'], correct: 0 },
+                { q: '"The wine ___ (complement) the fish perfectly." (Present simple)', options: ['complementing', 'complement', 'complements'], correct: 2 },
+                { q: 'If there is a misunderstanding, it is a:', options: ['miscommunication', 'compensation', 'restriction'], correct: 0 },
+                { q: '"I ___ check our availability." (Spontaneous decision/promise)', options: ['must', 'will', 'could'], correct: 1 }
+            ]
+        },
+        progressTestB: {
+            title: 'Progress Test 2B — A2 (Units 5–8)',
+            listening: {
+                transcript: 'Listen to the front desk agent: Good morning, Mrs. Smith. We have a problem with your reservation for the deluxe suite tonight. There was a miscommunication and the room is currently out of order due to a maintenance issue. I sincerely apologize for this inconvenience. As compensation, we will upgrade you to our Presidential Suite at no extra charge, and we will offer you a complimentary dinner at our signature restaurant tonight. Is that acceptable?',
+                questions: [
+                    { q: 'Why is the deluxe suite unavailable?', options: ['It is being sanitized', 'There is a maintenance issue', 'The guest arrived late'], correct: 1 },
+                    { q: 'What is the compensation for the room?', options: ['A full refund', 'An upgrade to the Presidential Suite', 'A free night stay'], correct: 1 },
+                    { q: 'What else does the hotel offer?', options: ['A free breakfast', 'A complimentary dinner at the signature restaurant', 'A free spa treatment'], correct: 1 }
+                ]
+            },
+            speaking: {
+                prompt: 'Oral Situation: You are taking a restaurant reservation over the phone. Confirm a table for two, ask about dietary restrictions, and recommend the signature dish.',
+                promptEs: 'Situación oral: Estás tomando una reserva de restaurante por teléfono. Confirmá una mesa para dos, preguntá sobre restricciones alimentarias y recomendá el plato estrella.',
+                model: 'Thank you for calling. I can confirm your reservation: a table for two tonight. Do you have any dietary restrictions we should know about? I highly recommend our signature dish, the roasted salmon, it is excellent.'
+            },
+            questions: [
+                { q: 'A rule about what someone can or cannot eat is a:', options: ['dietary restriction', 'signature dish', 'compensation'], correct: 0 },
+                { q: 'The most famous dish of a restaurant is the:', options: ['side dish', 'complimentary dish', 'signature dish'], correct: 2 },
+                { q: 'A free item given to a guest is:', options: ['expensive', 'complimentary', 'reserved'], correct: 1 },
+                { q: 'To make something free from germs is to:', options: ['sanitize', 'escalate', 'upgrade'], correct: 0 },
+                { q: 'When a situation is passed to a higher authority, you ___ it.', options: ['empathize', 'escalate', 'apologize'], correct: 1 },
+                { q: 'To say you are sorry for a mistake is to:', options: ['apologize', 'compensate', 'escalate'], correct: 0 },
+                { q: '"The customer ___ (complain) about the noise yesterday." (Past simple)', options: ['complains', 'complaining', 'complained'], correct: 2 },
+                { q: '"You ___ always knock before entering a room." (Strong obligation)', options: ['could', 'will', 'must'], correct: 2 },
+                { q: '"I ___ bring you fresh towels immediately." (Promise)', options: ['must', 'could', 'will'], correct: 2 },
+                { q: 'Something offered to make up for an error is:', options: ['compensation', 'escalation', 'reservation'], correct: 0 },
+                { q: 'Money given back to a customer is a:', options: ['refund', 'restriction', 'miscommunication'], correct: 0 },
+                { q: '"___ you bring the menu, please?" (Polite request)', options: ['Must', 'Will', 'Could'], correct: 2 },
+                { q: 'Gloves and masks are examples of:', options: ['amenities', 'PPE', 'portions'], correct: 1 },
+                { q: 'To share and understand someone\'s feelings is to:', options: ['escalate', 'empathize', 'sanitize'], correct: 1 },
+                { q: 'Extra items provided for guest comfort are:', options: ['amenities', 'restrictions', 'compensations'], correct: 0 },
+                { q: '"She ___ (apologize) for the delay." (Past simple)', options: ['apologizes', 'apologized', 'apologizing'], correct: 1 },
+                { q: 'A failure to communicate clearly is a:', options: ['miscommunication', 'compensation', 'restriction'], correct: 0 },
+                { q: 'Moving a guest to a better room is an:', options: ['escalation', 'upgrade', 'amenity'], correct: 1 },
+                { q: '"The soup ___ (contain) dairy." (Present simple)', options: ['contains', 'contain', 'containing'], correct: 0 },
+                { q: '"I ___ call the manager for you." (Spontaneous decision)', options: ['must', 'will', 'could'], correct: 1 }
+            ]
         }
     }
 ]);
