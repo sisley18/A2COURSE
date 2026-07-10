@@ -66,7 +66,7 @@ function renderProgressTestHTML(testObj, unitId) {
                     <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; color: #f3f4f6;">L${lqi+1}. ${lq.q}</p>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                         ${lq.options.map((opt, oi) => `
-                            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="checkProgressTestListeningAnswer(this, ${oi === lq.correct}, '${unitId}', ${lqi})">${opt}</button>
+                            <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="selectProgressTestListeningAnswer(this, ${oi === lq.correct}, '${unitId}', ${lqi})">${opt}</button>
                         `).join('')}
                     </div>
                 </div>
@@ -86,7 +86,7 @@ function renderProgressTestHTML(testObj, unitId) {
                     </div>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                         ${q.options.map((opt, oi) => `
-                            <button class="btn pt-option-btn" style="padding: 8px 16px; font-size: 0.85rem; border-color: rgba(251,191,36,0.4);" onclick="checkProgressTestAnswer(this, ${oi === q.correct}, '${unitId}', ${qi})">${opt}</button>
+                            <button class="btn pt-option-btn" style="padding: 8px 16px; font-size: 0.85rem; border-color: rgba(251,191,36,0.4);" onclick="selectProgressTestAnswer(this, ${oi === q.correct}, '${unitId}', ${qi})">${opt}</button>
                         `).join('')}
                     </div>
                 </div>
@@ -107,6 +107,12 @@ function renderProgressTestHTML(testObj, unitId) {
             </div>
         </div>
         ` : ''}
+
+        <div style="margin-top: 25px; text-align: center;">
+            <button class="btn pt-submit-btn" id="btn-submit-pt-${unitId}" style="background: var(--accent-gold); color: #1e1b4b; padding: 12px 24px; font-size: 1.1rem; border: none; font-weight: bold; width: 100%;" onclick="submitAndScoreProgressTest('${unitId}')">
+                ✅ SUBMIT AND SCORE TEST
+            </button>
+        </div>
 
         <div id="pt-result-${unitId}" style="margin-top: 20px; display: none; padding: 15px; border-radius: 12px; font-weight: bold; text-align: center;"></div>
         <button class="btn btn-primary" id="btn-send-pt-${unitId}" style="width: 100%; justify-content: center; background: #25D366; margin-top: 15px; display: none; border: none; font-weight: 700;" onclick="sendProgressTestToWhatsApp('${unitId}')">
@@ -954,86 +960,107 @@ window.deletePayment = function(id) {
 window.progressTestScores = {};
 window.progressTestListeningScores = {};
 
-window.checkProgressTestListeningAnswer = function (btn, isCorrect, unitId, questionIndex) {
+window.selectProgressTestListeningAnswer = function (btn, isCorrect, unitId, questionIndex) {
     const parent = btn.parentElement;
     Array.from(parent.children).forEach(b => {
-        b.style.pointerEvents = 'none';
-        b.style.opacity = '0.5';
+        b.style.background = 'rgba(255,255,255,0.05)';
+        b.style.borderColor = 'rgba(251,191,36,0.4)';
     });
     
-    if (isCorrect) {
-        btn.style.background = 'rgba(16,185,129,0.25)';
-        btn.style.borderColor = '#10b981';
-    } else {
-        btn.style.background = 'rgba(239,68,68,0.25)';
-        btn.style.borderColor = '#ef4444';
-    }
-    btn.style.opacity = '1';
+    btn.style.background = 'rgba(251,191,36,0.3)';
+    btn.style.borderColor = 'var(--accent-gold)';
     
     if (!window.progressTestListeningScores[unitId]) window.progressTestListeningScores[unitId] = {};
-    window.progressTestListeningScores[unitId][questionIndex] = isCorrect;
-    checkProgressTestOverallCompletion(unitId);
+    window.progressTestListeningScores[unitId][questionIndex] = { isCorrect, btn };
 };
 
-window.checkProgressTestAnswer = function (btn, isCorrect, unitId, questionIndex) {
+window.selectProgressTestAnswer = function (btn, isCorrect, unitId, questionIndex) {
     const parent = btn.parentElement;
     Array.from(parent.children).forEach(b => {
-        b.style.pointerEvents = 'none';
-        b.style.opacity = '0.5';
+        b.style.background = 'rgba(255,255,255,0.05)';
+        b.style.borderColor = 'rgba(251,191,36,0.4)';
     });
     
-    if (isCorrect) {
-        btn.style.background = 'rgba(16,185,129,0.25)';
-        btn.style.borderColor = '#10b981';
-    } else {
-        btn.style.background = 'rgba(239,68,68,0.25)';
-        btn.style.borderColor = '#ef4444';
-    }
-    btn.style.opacity = '1';
+    btn.style.background = 'rgba(251,191,36,0.3)';
+    btn.style.borderColor = 'var(--accent-gold)';
     
     if (!window.progressTestScores[unitId]) window.progressTestScores[unitId] = {};
-    window.progressTestScores[unitId][questionIndex] = isCorrect;
-    checkProgressTestOverallCompletion(unitId);
+    window.progressTestScores[unitId][questionIndex] = { isCorrect, btn };
 };
 
-function checkProgressTestOverallCompletion(unitId) {
+window.submitAndScoreProgressTest = function(unitId) {
     const isVersionB = String(unitId).endsWith('B');
     const realUnitId = isVersionB ? parseInt(String(unitId).replace('B', '')) : unitId;
     const unit = courseData.units.find(u => u.id === realUnitId);
     const testObj = isVersionB ? unit.progressTestB : unit.progressTest;
     if (!unit || !testObj) return;
+
+    // Check if all answered
+    const coreMap = window.progressTestScores[unitId] || {};
+    const listenMap = window.progressTestListeningScores[unitId] || {};
     
-    const coreAnswered = Object.keys(window.progressTestScores[unitId] || {}).length;
     const coreTotal = testObj.questions.length;
-    
-    const listenAnswered = Object.keys(window.progressTestListeningScores[unitId] || {}).length;
     const listenTotal = testObj.listening ? testObj.listening.questions.length : 0;
     
-    if (coreAnswered === coreTotal && listenAnswered === listenTotal) {
-        const coreCorrect = Object.values(window.progressTestScores[unitId] || {}).filter(v => v).length;
-        const listenCorrect = Object.values(window.progressTestListeningScores[unitId] || {}).filter(v => v).length;
-        
-        const totalCorrect = coreCorrect + listenCorrect;
-        const totalQuestions = coreTotal + listenTotal;
-        const percentage = Math.round((totalCorrect / totalQuestions) * 100);
-        
-        const resultBox = document.getElementById(`pt-result-${unitId}`);
-        if (resultBox) {
-            resultBox.style.display = 'block';
-            resultBox.style.background = percentage >= 70 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)';
-            resultBox.style.color = percentage >= 70 ? '#4ade80' : '#f87171';
-            resultBox.style.border = percentage >= 70 ? '1px solid #10b981' : '1px solid #ef4444';
-            resultBox.innerHTML = `Test Completed! Score: ${totalCorrect}/${totalQuestions} (${percentage}%)<br>` + 
-                `Listening: ${listenCorrect}/${listenTotal} | Core Quiz: ${coreCorrect}/${coreTotal}<br>` + 
-                `${percentage >= 70 ? '🎉 Excellent job! You passed!' : '📚 Review the material and try again!'}`;
-        }
-        
-        const sendBtn = document.getElementById(`btn-send-pt-${unitId}`);
-        if (sendBtn) {
-            sendBtn.style.display = 'flex';
-        }
+    if (Object.keys(coreMap).length < coreTotal || Object.keys(listenMap).length < listenTotal) {
+        alert('Please answer all questions before submitting. / Por favor contestá todas las preguntas antes de enviar.');
+        return;
     }
-}
+    
+    // Calculate and style
+    let coreCorrect = 0;
+    let listenCorrect = 0;
+    
+    for (let qi in listenMap) {
+        let ans = listenMap[qi];
+        if (ans.isCorrect) {
+            listenCorrect++;
+            ans.btn.style.background = 'rgba(16,185,129,0.25)';
+            ans.btn.style.borderColor = '#10b981';
+        } else {
+            ans.btn.style.background = 'rgba(239,68,68,0.25)';
+            ans.btn.style.borderColor = '#ef4444';
+        }
+        ans.btn.parentElement.style.pointerEvents = 'none';
+        ans.btn.parentElement.style.opacity = '0.8';
+    }
+    
+    for (let qi in coreMap) {
+        let ans = coreMap[qi];
+        if (ans.isCorrect) {
+            coreCorrect++;
+            ans.btn.style.background = 'rgba(16,185,129,0.25)';
+            ans.btn.style.borderColor = '#10b981';
+        } else {
+            ans.btn.style.background = 'rgba(239,68,68,0.25)';
+            ans.btn.style.borderColor = '#ef4444';
+        }
+        ans.btn.parentElement.style.pointerEvents = 'none';
+        ans.btn.parentElement.style.opacity = '0.8';
+    }
+    
+    // Show results
+    const totalCorrect = coreCorrect + listenCorrect;
+    const totalQuestions = coreTotal + listenTotal;
+    const percentage = Math.round((totalCorrect / totalQuestions) * 100);
+    
+    const resultBox = document.getElementById(`pt-result-${unitId}`);
+    if (resultBox) {
+        resultBox.style.display = 'block';
+        resultBox.style.background = percentage >= 70 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)';
+        resultBox.style.color = percentage >= 70 ? '#4ade80' : '#f87171';
+        resultBox.style.border = percentage >= 70 ? '1px solid #10b981' : '1px solid #ef4444';
+        resultBox.innerHTML = `Test Completed! Score: ${totalCorrect}/${totalQuestions} (${percentage}%)<br>` + 
+            `Listening: ${listenCorrect}/${listenTotal} | Core Quiz: ${coreCorrect}/${coreTotal}<br>` + 
+            `${percentage >= 70 ? '🎉 Excellent job! You passed!' : '📚 Review the material and try again!'}`;
+    }
+    
+    const sendBtn = document.getElementById(`btn-send-pt-${unitId}`);
+    if (sendBtn) sendBtn.style.display = 'flex';
+    
+    const submitBtn = document.getElementById(`btn-submit-pt-${unitId}`);
+    if (submitBtn) submitBtn.style.display = 'none';
+};
 
 window.sendProgressTestToWhatsApp = function(unitId) {
     const isVersionB = String(unitId).endsWith('B');
