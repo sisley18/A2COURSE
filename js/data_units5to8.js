@@ -417,9 +417,9 @@ courseData.units = courseData.units.concat([
                 ]
             },
             speaking: {
-                prompt: 'Oral Situation: A guest is complaining about a dirty room and cold food from room service. Apologize, offer a solution, and explain what you will do next. Use "I sincerely apologize", "I will", and "compensation".',
-                promptEs: 'Situación oral: Un huésped se queja de una habitación sucia y comida fría del servicio de habitaciones. Disculpate, ofrecé una solución y explicá qué harás a continuación. Usá "I sincerely apologize", "I will" y "compensation".',
-                model: 'I sincerely apologize for the condition of your room and the cold food. That is unacceptable. I will send housekeeping to sanitize your room immediately. As compensation, I will send a fresh, hot meal right away, completely complimentary. Could I offer you a drink while you wait?'
+                prompt: 'Job Interview (Entrevista Laboral): You are applying for a job as a hotel manager. The interviewer asks: "Why do you want to work here?" and "How do you handle angry guests?" Answer professionally.',
+                promptEs: 'Entrevista Laboral: Estás aplicando para un puesto de gerente de hotel. El entrevistador pregunta: "¿Por qué querés trabajar aquí?" y "¿Cómo manejás a los huéspedes enojados?". Respondé profesionalmente.',
+                model: 'I want to work here because this hotel has an excellent reputation for customer service. When I handle an angry guest, I always listen, empathize, apologize sincerely, and offer a quick solution or compensation.'
             },
             questions: [
                 { q: 'To express deep regret for a mistake, you say "I sincerely ___."', options: ['empathize', 'apologize', 'escalate'], correct: 1 },
@@ -441,7 +441,10 @@ courseData.units = courseData.units.concat([
                 { q: 'Money returned to a guest because of a problem is a:', options: ['refund', 'reservation', 'restriction'], correct: 0 },
                 { q: '"The wine ___ (complement) the fish perfectly." (Present simple)', options: ['complementing', 'complement', 'complements'], correct: 2 },
                 { q: 'If there is a misunderstanding, it is a:', options: ['miscommunication', 'compensation', 'restriction'], correct: 0 },
-                { q: '"I ___ check our availability." (Spontaneous decision/promise)', options: ['must', 'will', 'could'], correct: 1 }
+                { q: '"I ___ check our availability." (Spontaneous decision/promise)', options: ['must', 'will', 'could'], correct: 1 },
+                { q: 'During a job interview, if you are asked about your "strengths", you should talk about:', options: ['what you are good at', 'your salary', 'your mistakes'], correct: 0 },
+                { q: '"Why should we hire you?" A good professional response is:', options: ['I need the money.', 'I have excellent customer service skills.', 'I don\'t know.'], correct: 1 },
+                { q: 'In an interview, "previous experience" means:', options: ['jobs you had in the past', 'what you want to do in the future', 'your hobbies'], correct: 0 }
             ]
         },
         progressTestB: {
@@ -455,9 +458,9 @@ courseData.units = courseData.units.concat([
                 ]
             },
             speaking: {
-                prompt: 'Oral Situation: You are taking a restaurant reservation over the phone. Confirm a table for two, ask about dietary restrictions, and recommend the signature dish.',
-                promptEs: 'Situación oral: Estás tomando una reserva de restaurante por teléfono. Confirmá una mesa para dos, preguntá sobre restricciones alimentarias y recomendá el plato estrella.',
-                model: 'Thank you for calling. I can confirm your reservation: a table for two tonight. Do you have any dietary restrictions we should know about? I highly recommend our signature dish, the roasted salmon, it is excellent.'
+                prompt: 'Oral Situation: You are taking a restaurant reservation over the phone. Confirm a table for two. Also, Job Interview: Describe your previous experience and explain why you are perfect for the job.',
+                promptEs: 'Situación oral: Estás tomando una reserva de restaurante por teléfono. Confirmá una mesa para dos. Además, Entrevista Laboral: Describí tu experiencia previa y explicá por qué sos perfecto/a para el trabajo.',
+                model: 'Thank you for calling. I can confirm your reservation: a table for two tonight. ... For the interview: I have worked as a receptionist for two years. I am very organized, and I have excellent communication skills. I am perfect for this job because I love helping guests.'
             },
             questions: [
                 { q: 'A rule about what someone can or cannot eat is a:', options: ['dietary restriction', 'signature dish', 'compensation'], correct: 0 },
@@ -478,6 +481,9 @@ courseData.units = courseData.units.concat([
                 { q: '"She ___ (apologize) for the delay." (Past simple)', options: ['apologizes', 'apologized', 'apologizing'], correct: 1 },
                 { q: 'A failure to communicate clearly is a:', options: ['miscommunication', 'compensation', 'restriction'], correct: 0 },
                 { q: 'Moving a guest to a better room is an:', options: ['escalation', 'upgrade', 'amenity'], correct: 1 },
+                { q: 'If an interviewer asks "What are your weaknesses?", they want to know:', options: ['areas where you can improve', 'what you are best at', 'your favorite food'], correct: 0 },
+                { q: 'To make a good impression in a job interview, you should:', options: ['arrive late', 'speak clearly and professionally', 'complain about your last boss'], correct: 1 },
+                { q: 'The document you give to the employer with your work history is called a:', options: ['resume / CV', 'menu', 'receipt'], correct: 0 },
                 { q: '"The soup ___ (contain) dairy." (Present simple)', options: ['contains', 'contain', 'containing'], correct: 0 },
                 { q: '"I ___ call the manager for you." (Spontaneous decision)', options: ['must', 'will', 'could'], correct: 1 }
             ]
