@@ -440,11 +440,8 @@ courseData.units = courseData.units.concat([
                 { q: 'To move a guest to a better room is to give them an:', options: ['upgrade', 'amenity', 'escalation'], correct: 0 },
                 { q: 'Money returned to a guest because of a problem is a:', options: ['refund', 'reservation', 'restriction'], correct: 0 },
                 { q: '"The wine ___ (complement) the fish perfectly." (Present simple)', options: ['complementing', 'complement', 'complements'], correct: 2 },
-                { q: 'If there is a misunderstanding, it is a:', options: ['miscommunication', 'compensation', 'restriction'], correct: 0 },
-                { q: '"I ___ check our availability." (Spontaneous decision/promise)', options: ['must', 'will', 'could'], correct: 1 },
                 { q: 'During a job interview, if you are asked about your "strengths", you should talk about:', options: ['what you are good at', 'your salary', 'your mistakes'], correct: 0 },
-                { q: '"Why should we hire you?" A good professional response is:', options: ['I need the money.', 'I have excellent customer service skills.', 'I don\'t know.'], correct: 1 },
-                { q: 'In an interview, "previous experience" means:', options: ['jobs you had in the past', 'what you want to do in the future', 'your hobbies'], correct: 0 }
+                { q: '"Why should we hire you?" A good professional response is:', options: ['I need the money.', 'I have excellent customer service skills.', 'I don\'t know.'], correct: 1 }
             ]
         },
         progressTestB: {
@@ -482,10 +479,7 @@ courseData.units = courseData.units.concat([
                 { q: 'A failure to communicate clearly is a:', options: ['miscommunication', 'compensation', 'restriction'], correct: 0 },
                 { q: 'Moving a guest to a better room is an:', options: ['escalation', 'upgrade', 'amenity'], correct: 1 },
                 { q: 'If an interviewer asks "What are your weaknesses?", they want to know:', options: ['areas where you can improve', 'what you are best at', 'your favorite food'], correct: 0 },
-                { q: 'To make a good impression in a job interview, you should:', options: ['arrive late', 'speak clearly and professionally', 'complain about your last boss'], correct: 1 },
-                { q: 'The document you give to the employer with your work history is called a:', options: ['resume / CV', 'menu', 'receipt'], correct: 0 },
-                { q: '"The soup ___ (contain) dairy." (Present simple)', options: ['contains', 'contain', 'containing'], correct: 0 },
-                { q: '"I ___ call the manager for you." (Spontaneous decision)', options: ['must', 'will', 'could'], correct: 1 }
+                { q: 'To make a good impression in a job interview, you should:', options: ['arrive late', 'speak clearly and professionally', 'complain about your last boss'], correct: 1 }
             ]
         }
     }
