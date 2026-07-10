@@ -1003,8 +1003,9 @@ window.submitAndScoreProgressTest = function(unitId) {
     const listenTotal = testObj.listening ? testObj.listening.questions.length : 0;
     
     if (Object.keys(coreMap).length < coreTotal || Object.keys(listenMap).length < listenTotal) {
-        alert('Please answer all questions before submitting. / Por favor contestá todas las preguntas antes de enviar.');
-        return;
+        if (!confirm('You have not answered all questions. Unanswered questions will be marked as incorrect. Submit anyway? / Hay preguntas sin contestar. Se contarán como incorrectas. ¿Enviar igual?')) {
+            return;
+        }
     }
     
     // Calculate and style
@@ -1070,11 +1071,11 @@ window.sendProgressTestToWhatsApp = function(unitId) {
     if (!unit || !testObj) return;
     
     const coreMap = window.progressTestScores[unitId] || {};
-    const coreCorrect = Object.values(coreMap).filter(v => v).length;
+    const coreCorrect = Object.values(coreMap).filter(v => v.isCorrect).length;
     const coreTotal = testObj.questions.length;
     
     const listenMap = window.progressTestListeningScores[unitId] || {};
-    const listenCorrect = Object.values(listenMap).filter(v => v).length;
+    const listenCorrect = Object.values(listenMap).filter(v => v.isCorrect).length;
     const listenTotal = testObj.listening ? testObj.listening.questions.length : 0;
     
     const totalCorrect = coreCorrect + listenCorrect;
