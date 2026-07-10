@@ -407,7 +407,7 @@ courseData.units = courseData.units.concat([
             ]
         },
         progressTest: {
-            title: 'Progress Test 2 — A2 (Units 5–8)',
+            title: 'Progress Test — A2 (Units 1–7)',
             listening: {
                 transcript: 'Listen to the manager handling a complex situation: Good evening, Mr. Davis. I understand you had an issue with your dinner and your room. I sincerely apologize for the delay in the restaurant; our signature dish takes a bit longer, but forty minutes is unacceptable. As compensation, we have removed the charge for your meal. Regarding the room, I will upgrade you to a suite with an ocean view immediately, and I will have housekeeping bring fresh amenities and sanitize the new room before you enter. Could I help you with anything else?',
                 questions: [
@@ -445,7 +445,7 @@ courseData.units = courseData.units.concat([
             ]
         },
         progressTestB: {
-            title: 'Progress Test 2B — A2 (Units 5–8)',
+            title: 'Progress Test B — A2 (Units 1–7)',
             listening: {
                 transcript: 'Listen to the front desk agent: Good morning, Mrs. Smith. We have a problem with your reservation for the deluxe suite tonight. There was a miscommunication and the room is currently out of order due to a maintenance issue. I sincerely apologize for this inconvenience. As compensation, we will upgrade you to our Presidential Suite at no extra charge, and we will offer you a complimentary dinner at our signature restaurant tonight. Is that acceptable?',
                 questions: [
